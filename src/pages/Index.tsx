@@ -1,9 +1,7 @@
-// Update this page (the content is just a fallback if you fail to update the page)
-
-import { Dashboard } from '@/components/Dashboard';
+import { AppLayout } from '@/components/AppLayout';
 
 const Index = () => {
-  return <Dashboard />;
+  return <AppLayout />;
 };
 
 export default Index;

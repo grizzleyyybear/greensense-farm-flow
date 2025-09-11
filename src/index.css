@@ -6,43 +6,43 @@
 
 @layer base {
   :root {
-    /* Core agricultural color palette */
-    --background: 80 20% 97%;
-    --foreground: 160 15% 15%;
+    /* New vibrant color palette */
+    --background: 62 87% 94%;
+    --foreground: 0 15% 20%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 160 15% 15%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 15% 20%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 160 15% 15%;
+    --popover: 0 0% 98%;
+    --popover-foreground: 0 15% 20%;
 
-    /* Primary: Fresh green for healthy crops */
-    --primary: 140 35% 45%;
-    --primary-foreground: 0 0% 98%;
+    /* Primary: Coral red */
+    --primary: 0 78% 74%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Soft blue-green like morning sky */
-    --secondary: 190 25% 85%;
-    --secondary-foreground: 160 15% 15%;
+    /* Secondary: Soft peach */
+    --secondary: 22 100% 83%;
+    --secondary-foreground: 0 15% 20%;
 
-    /* Muted: Natural cream tones */
-    --muted: 45 20% 90%;
-    --muted-foreground: 160 15% 45%;
+    /* Muted: Light yellow cream */
+    --muted: 39 96% 84%;
+    --muted-foreground: 0 15% 45%;
 
-    /* Accent: Warm earth tones */
-    --accent: 35 25% 75%;
-    --accent-foreground: 160 15% 15%;
+    /* Accent: Bright yellow lime */
+    --accent: 62 87% 84%;
+    --accent-foreground: 0 15% 20%;
 
-    /* Status colors */
-    --healthy: 120 60% 50%;
-    --warning: 45 85% 55%;
-    --danger: 0 75% 55%;
-    --info: 200 75% 55%;
+    /* Status colors using new palette */
+    --healthy: 62 87% 70%;
+    --warning: 39 96% 70%;
+    --danger: 0 78% 64%;
+    --info: 22 100% 73%;
 
     /* Agricultural specific colors */
-    --soil: 35 25% 65%;
-    --water: 190 75% 65%;
-    --sun: 45 95% 65%;
-    --leaf: 120 50% 45%;
+    --soil: 22 85% 75%;
+    --water: 200 75% 65%;
+    --sun: 39 96% 75%;
+    --leaf: 62 80% 60%;
 
     /* Gradients */
     --gradient-healthy: linear-gradient(135deg, hsl(120 60% 50%), hsl(140 55% 45%));
