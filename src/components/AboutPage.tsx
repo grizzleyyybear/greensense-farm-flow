@@ -95,7 +95,7 @@ export const AboutPage = ({ language }: AboutPageProps) => {
       avatar: "😸"
     },
     {
-      name: "Asim Ahmed Siddiqui",
+      name: "Asim Siddiqui",
       role: "AI ML Specialist",
       description: "The algorithm whisperer",
       avatar: "🤫"
