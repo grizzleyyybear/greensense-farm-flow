@@ -89,21 +89,21 @@ export const AboutPage = ({ language }: AboutPageProps) => {
 
   const teamMembers = [
     {
-      name: "Dr. Rajesh Patel",
-      role: "Agricultural AI Scientist", 
-      description: "15+ years in precision agriculture and machine learning applications for crop management",
-      avatar: "🧑‍🔬"
+      name: "Mrinal Sharma",
+      role: "AI-ML enthusiast & a designer by heart", 
+      description: "Optimal steps everytime",
+      avatar: "😸"
     },
     {
-      name: "Priya Sharma",
-      role: "IoT Systems Engineer",
-      description: "Expert in developing sensor networks and automated control systems for smart farming",
-      avatar: "👩‍💻"
+      name: "Asim Ahmed Siddiqui",
+      role: "AI ML Specialist",
+      description: "The algorithm whisperer",
+      avatar: "🤫"
     },
     {
-      name: "Kumar Singh",
-      role: "Sustainable Agriculture Advisor",
-      description: "Pioneering eco-friendly farming practices and sustainable pest management solutions",
+      name: "Tanmay Tyagi",
+      role: "likes templeOS",
+      description: "slightly annoying but a great coder",
       avatar: "🌱"
     }
   ];

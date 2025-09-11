@@ -99,7 +99,7 @@ export const Dashboard = ({ language }: DashboardProps) => {
       <div 
         className="relative h-64 bg-gradient-to-r from-primary/30 via-secondary/30 to-accent/30 flex items-center justify-center overflow-hidden"
         style={{ 
-          backgroundImage: `linear-gradient(rgba(240, 135, 135, 0.3), rgba(255, 199, 167, 0.3)), url(${heroImage})`,
+          backgroundImage: `linear-gradient(rgba(240, 135, 135, 0), rgba(255, 199, 167, 0)), url(${heroImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
