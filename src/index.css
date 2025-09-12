@@ -34,14 +34,14 @@
 
     /* Status colors using new palette */
     --healthy: 120 65% 55%;
-    --warning: 39 96% 70%;
+    --warning: 45 100% 60%;
     --danger: 0 78% 64%;
     --info: 22 100% 73%;
 
     /* Agricultural specific colors */
     --soil: 22 85% 75%;
     --water: 200 75% 65%;
-    --sun: 39 96% 75%;
+    --sun: 45 100% 65%;
     --leaf: 120 60% 45%;
 
     /* Gradients */
