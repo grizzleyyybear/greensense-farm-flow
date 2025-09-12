@@ -10,6 +10,7 @@ import { PlantDetailView } from './PlantDetailView';
 import { InfectionChart } from './InfectionChart';
 import { NotificationCenter } from './NotificationCenter';
 import { mockAIModel } from '../lib/mockAIModel';
+import { getTranslation } from '@/lib/translations';
 import heroImage from '@/assets/hero-agriculture.jpg';
 
 interface DashboardProps {
@@ -20,79 +21,20 @@ export const Dashboard = ({ language }: DashboardProps) => {
   const [selectedPlot, setSelectedPlot] = useState<string | null>(null);
   const [automatedMode, setAutomatedMode] = useState(true);
   const [pesticideLevel] = useState(78);
+  const t = getTranslation(language);
 
   const handleManualSpray = () => {
     const notification = {
       id: Date.now().toString(),
-      message: `Manual pesticide application initiated for Plot ${selectedPlot || 'A'}`,
+      message: `${t.manualSpray} initiated for Plot ${selectedPlot || 'A'}`,
       timestamp: new Date(),
       type: 'success' as const
     };
     console.log('Manual spray triggered:', notification);
   };
 
-  const translations = {
-    en: {
-      farmOverview: "Smart Farm Overview",
-      subtitle: "AI-Powered Precision Agriculture & Pest Control",
-      plotsOverview: "Farm Plots Overview", 
-      iotControls: "Smart IoT Controls",
-      automatedMode: "Automated Mode",
-      pesticideLevel: "Pesticide Level",
-      manualSpray: "Manual Spray",
-      weatherConditions: "Weather Conditions",
-      temperature: "Temperature",
-      humidity: "Humidity", 
-      windSpeed: "Wind Speed",
-      uvIndex: "UV Index",
-      infectionTrend: "Infection Trend Analysis (7 Days)",
-      recentActivity: "Recent System Activity",
-      pesticideOptimization: "Pesticide Usage Optimization",
-      environmentalImpact: "Environmental Impact Reduction",
-      cropHealthMonitoring: "Real-Time Crop Health Monitoring"
-    },
-    hi: {
-      farmOverview: "स्मार्ट फार्म अवलोकन",
-      subtitle: "AI-संचालित सटीक कृषि और कीट नियंत्रण",
-      plotsOverview: "फार्म प्लॉट्स अवलोकन",
-      iotControls: "स्मार्ट IoT नियंत्रण",
-      automatedMode: "स्वचालित मोड",
-      pesticideLevel: "कीटनाशक स्तर", 
-      manualSpray: "मैनुअल स्प्रे",
-      weatherConditions: "मौसम की स्थिति",
-      temperature: "तापमान",
-      humidity: "आर्द्रता",
-      windSpeed: "हवा की गति",
-      uvIndex: "UV सूचकांक",
-      infectionTrend: "संक्रमण प्रवृत्ति विश्लेषण (7 दिन)",
-      recentActivity: "हाल की सिस्टम गतिविधि",
-      pesticideOptimization: "कीटनाशक उपयोग अनुकूलन",
-      environmentalImpact: "पर्यावरणीय प्रभाव में कमी",
-      cropHealthMonitoring: "रीयल-टाइम फसल स्वास्थ्य निगरानी"
-    },
-    pa: {
-      farmOverview: "ਸਮਾਰਟ ਫਾਰਮ ਸਮੀਖਿਆ",
-      subtitle: "AI-ਸੰਚਾਲਿਤ ਸਟੀਕ ਖੇਤੀਬਾੜੀ ਅਤੇ ਕੀੜੇ ਨਿਯੰਤਰਣ",
-      plotsOverview: "ਫਾਰਮ ਪਲਾਟ ਸਮੀਖਿਆ",
-      iotControls: "ਸਮਾਰਟ IoT ਨਿਯੰਤਰਣ",
-      automatedMode: "ਸਵੈਚਲਿਤ ਮੋਡ",
-      pesticideLevel: "ਕੀੜੇ-ਮਾਰੂ ਪੱਧਰ",
-      manualSpray: "ਮੈਨੁਅਲ ਸਪਰੇ",
-      weatherConditions: "ਮੌਸਮੀ ਹਾਲਾਤ",
-      temperature: "ਤਾਪਮਾਨ",
-      humidity: "ਨਮੀ",
-      windSpeed: "ਹਵਾ ਦੀ ਗਤੀ",
-      uvIndex: "UV ਸੂਚਕਾਂਕ",
-      infectionTrend: "ਸੰਕਰਮਣ ਰੁਝਾਨ ਵਿਸ਼ਲੇਸ਼ਣ (7 ਦਿਨ)",
-      recentActivity: "ਹਾਲ ਦੀ ਸਿਸਟਮ ਗਤਿਵਿਧੀ",
-      pesticideOptimization: "ਕੀੜੇ-ਮਾਰੂ ਵਰਤੋਂ ਅਨੁਕੂਲਨ",
-      environmentalImpact: "ਵਾਤਾਵਰਨ ਪ੍ਰਭਾਵ ਘਟਾਉਣਾ",
-      cropHealthMonitoring: "ਰੀਅਲ-ਟਾਈਮ ਫਸਲ ਸਿਹਤ ਨਿਗਰਾਨੀ"
-    }
-  };
-
-  const t = translations[language as keyof typeof translations] || translations.en;
-
+  // Remove old translations object - now using centralized translations
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-accent/10 to-secondary/20">
 
@@ -114,16 +56,16 @@ export const Dashboard = ({ language }: DashboardProps) => {
               </div>
             </div>
           </div>
-          <h2 className="text-4xl font-bold mb-2 drop-shadow-lg">{t.farmOverview}</h2>
-          <p className="text-lg opacity-90 drop-shadow-md">{t.subtitle}</p>
+          <h2 className="text-4xl font-bold mb-2 drop-shadow-lg">{t.smartCropHealth}</h2>
+          <p className="text-lg opacity-90 drop-shadow-md">{t.smartAgriculturePlatform}</p>
           <div className="flex justify-center gap-4 mt-4">
             <Badge className="bg-white/20 text-white border-white/30">
               <Target className="h-3 w-3 mr-1" />
-              95% Detection Accuracy
+              95% {t.aiAccuracy}
             </Badge>
             <Badge className="bg-white/20 text-white border-white/30">
               <TrendingUp className="h-3 w-3 mr-1" />
-              60% Less Pesticide Use
+              60% {t.pesticideReduction}
             </Badge>
           </div>
         </div>
@@ -139,10 +81,10 @@ export const Dashboard = ({ language }: DashboardProps) => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
             <Card className="lg:col-span-2 border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 hover:shadow-lg">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Leaf className="h-5 w-5 text-healthy" />
-                  {t.plotsOverview}
-                </CardTitle>
+                  <CardTitle className="flex items-center gap-2">
+                    <Leaf className="h-5 w-5 text-healthy" />
+                    {t.farmOverview}
+                  </CardTitle>
               </CardHeader>
               <CardContent>
                 <PlotGrid onPlotSelect={setSelectedPlot} />
@@ -154,12 +96,12 @@ export const Dashboard = ({ language }: DashboardProps) => {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Zap className="h-5 w-5 text-info" />
-                    {t.iotControls}
+                    {t.quickActions}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">{t.automatedMode}</span>
+                    <span className="text-sm font-medium">{t.autoMode}</span>
                     <Switch 
                       checked={automatedMode}
                       onCheckedChange={setAutomatedMode}
@@ -191,7 +133,7 @@ export const Dashboard = ({ language }: DashboardProps) => {
                   <div className="mt-4 p-3 bg-accent/10 rounded-lg">
                     <div className="flex items-center gap-2 mb-2">
                       <Shield className="h-4 w-4 text-accent" />
-                      <span className="text-sm font-medium">{t.pesticideOptimization}</span>
+                      <span className="text-sm font-medium">{t.environmentalImpact}</span>
                     </div>
                     <p className="text-xs text-muted-foreground">Smart targeting reduces usage by 60% while maintaining crop protection</p>
                   </div>
@@ -202,7 +144,7 @@ export const Dashboard = ({ language }: DashboardProps) => {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Sun className="h-5 w-5 text-sun" />
-                    {t.weatherConditions}
+                    Weather
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -210,28 +152,28 @@ export const Dashboard = ({ language }: DashboardProps) => {
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-primary rounded-full"></div>
                       <div>
-                        <p className="text-muted-foreground">{t.temperature}</p>
+                        <p className="text-muted-foreground">Temperature</p>
                         <p className="font-semibold">24°C</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-secondary rounded-full"></div>
                       <div>
-                        <p className="text-muted-foreground">{t.humidity}</p>
+                        <p className="text-muted-foreground">Humidity</p>
                         <p className="font-semibold">68%</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-accent rounded-full"></div>
                       <div>
-                        <p className="text-muted-foreground">{t.windSpeed}</p>
+                        <p className="text-muted-foreground">Wind Speed</p>
                         <p className="font-semibold">12 km/h</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-warning rounded-full"></div>
                       <div>
-                        <p className="text-muted-foreground">{t.uvIndex}</p>
+                        <p className="text-muted-foreground">UV Index</p>
                         <p className="font-semibold">6 (High)</p>
                       </div>
                     </div>
@@ -249,7 +191,7 @@ export const Dashboard = ({ language }: DashboardProps) => {
                     <Target className="h-8 w-8 text-healthy" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg">{t.pesticideOptimization}</h3>
+                    <h3 className="font-semibold text-lg">{t.environmentalImpact}</h3>
                     <p className="text-2xl font-bold text-healthy">60% Reduction</p>
                     <p className="text-sm text-muted-foreground">vs. traditional methods</p>
                   </div>
@@ -279,7 +221,7 @@ export const Dashboard = ({ language }: DashboardProps) => {
                     <Zap className="h-8 w-8 text-warning" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg">{t.cropHealthMonitoring}</h3>
+                    <h3 className="font-semibold text-lg">{t.realTimeMonitoring}</h3>
                     <p className="text-2xl font-bold text-warning">24/7</p>
                     <p className="text-sm text-muted-foreground">AI surveillance</p>
                   </div>

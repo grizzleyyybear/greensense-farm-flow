@@ -21,6 +21,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { getTranslation } from '@/lib/translations';
 
 interface NavigationProps {
   currentPage: string;
@@ -31,11 +32,12 @@ interface NavigationProps {
 
 export const Navigation = ({ currentPage, onPageChange, language, onLanguageChange }: NavigationProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const t = getTranslation(language);
 
   const navigationItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: Home },
-    { id: 'login', label: 'Login', icon: LogIn },
-    { id: 'about', label: 'About Us', icon: Users },
+    { id: 'dashboard', label: t.dashboard, icon: Home },
+    { id: 'login', label: t.login, icon: LogIn },
+    { id: 'about', label: t.about, icon: Users },
   ];
 
   const languages = [
@@ -93,7 +95,7 @@ export const Navigation = ({ currentPage, onPageChange, language, onLanguageChan
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" size="sm" className="gap-2">
                     <Globe className="h-4 w-4" />
-                    {getCurrentLanguageName()}
+                    {t.language}: {getCurrentLanguageName()}
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
@@ -145,7 +147,7 @@ export const Navigation = ({ currentPage, onPageChange, language, onLanguageChan
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="justify-start gap-2 mt-2">
                       <Globe className="h-4 w-4" />
-                      {getCurrentLanguageName()}
+                      {t.language}: {getCurrentLanguageName()}
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
@@ -172,7 +174,7 @@ export const Navigation = ({ currentPage, onPageChange, language, onLanguageChan
           onClick={() => onPageChange('help')}
         >
           <HelpCircle className="h-5 w-5 mr-2" />
-          Help
+          {t.help}
         </Button>
       </div>
     </>
