@@ -14,14 +14,18 @@ import { getTranslation } from '@/lib/translations';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { fetchWeather, getUserLocation, WeatherData } from '@/lib/weatherApi';
 import heroImage from '@/assets/hero-agriculture.jpg';
+import { useUser } from "@clerk/clerk-react";
 
 export const Dashboard = () => {
   const { language } = useLanguage();
+  const { user } = useUser(); // 👈 get Clerk user
+  const email = user?.primaryEmailAddress?.emailAddress; // 👈 get email
   const [selectedPlot, setSelectedPlot] = useState<string | null>(null);
   const [automatedMode, setAutomatedMode] = useState(true);
   const [pesticideLevel] = useState(78);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [weatherLoading, setWeatherLoading] = useState(true);
+  const [plots, setPlots] = useState([]); // Add this line
   const t = getTranslation(language);
 
   useEffect(() => {
@@ -54,6 +58,35 @@ export const Dashboard = () => {
     };
     console.log('Manual spray triggered:', notification);
   };
+
+  const handleAddPlot = async (file: File) => {
+    if (!email) return; // Don't proceed if email is not loaded
+    try {
+      const response = await fetch('http://localhost:5000/api/user/add-plot', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      const updatedUser = await response.json();
+      setPlots(updatedUser.plots || []);
+    } catch (err) {
+      console.error('Failed to add plot:', err);
+    }
+  };
+
+  useEffect(() => {
+    if (!email) return;
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/user?email=${email}`);
+        const user = await response.json();
+        setPlots(user.plots || []);
+      } catch (err) {
+        setPlots([]);
+      }
+    };
+    fetchUser();
+  }, [email]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-accent/10 to-secondary/20">
@@ -107,7 +140,11 @@ export const Dashboard = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <PlotGrid onPlotSelect={setSelectedPlot} />
+                <PlotGrid
+                  plots={plots}
+                  onPlotSelect={setSelectedPlot}
+                  onAddPlot={handleAddPlot}
+                />
               </CardContent>
             </Card>
 
