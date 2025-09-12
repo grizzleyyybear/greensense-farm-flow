@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Leaf, Droplets, Sun, Bell, BarChart3, Settings, Home, Camera, Shield, TrendingUp, Zap, Target } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -11,17 +11,39 @@ import { InfectionChart } from './InfectionChart';
 import { NotificationCenter } from './NotificationCenter';
 import { mockAIModel } from '../lib/mockAIModel';
 import { getTranslation } from '@/lib/translations';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { fetchWeather, getUserLocation, WeatherData } from '@/lib/weatherApi';
 import heroImage from '@/assets/hero-agriculture.jpg';
 
-interface DashboardProps {
-  language: string;
-}
-
-export const Dashboard = ({ language }: DashboardProps) => {
+export const Dashboard = () => {
+  const { language } = useLanguage();
   const [selectedPlot, setSelectedPlot] = useState<string | null>(null);
   const [automatedMode, setAutomatedMode] = useState(true);
   const [pesticideLevel] = useState(78);
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [weatherLoading, setWeatherLoading] = useState(true);
   const t = getTranslation(language);
+
+  useEffect(() => {
+    const loadWeather = async () => {
+      try {
+        const location = await getUserLocation();
+        const data = await fetchWeather(location.lat, location.lon);
+        setWeatherData(data);
+      } catch (error) {
+        console.error('Failed to load weather data:', error);
+        setWeatherData({
+          temperature: 24,
+          humidity: 68,
+          windSpeed: 12,
+        });
+      } finally {
+        setWeatherLoading(false);
+      }
+    };
+
+    loadWeather();
+  }, []);
 
   const handleManualSpray = () => {
     const notification = {
@@ -33,8 +55,6 @@ export const Dashboard = ({ language }: DashboardProps) => {
     console.log('Manual spray triggered:', notification);
   };
 
-  // Remove old translations object - now using centralized translations
-  
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-accent/10 to-secondary/20">
 
@@ -148,36 +168,43 @@ export const Dashboard = ({ language }: DashboardProps) => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-primary rounded-full"></div>
-                      <div>
-                        <p className="text-muted-foreground">Temperature</p>
-                        <p className="font-semibold">24°C</p>
+                  {weatherLoading ? (
+                    <div className="flex items-center justify-center py-4">
+                      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+                      <span className="ml-2 text-sm text-muted-foreground">Loading weather...</span>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-primary rounded-full"></div>
+                        <div>
+                          <p className="text-muted-foreground">Temperature</p>
+                          <p className="font-semibold">{weatherData?.temperature || 24}°C</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-secondary rounded-full"></div>
+                        <div>
+                          <p className="text-muted-foreground">Humidity</p>
+                          <p className="font-semibold">{weatherData?.humidity || 68}%</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-accent rounded-full"></div>
+                        <div>
+                          <p className="text-muted-foreground">Wind Speed</p>
+                          <p className="font-semibold">{weatherData?.windSpeed || 12} km/h</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-warning rounded-full"></div>
+                        <div>
+                          <p className="text-muted-foreground">UV Index</p>
+                          <p className="font-semibold">6 (High)</p>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                      <div>
-                        <p className="text-muted-foreground">Humidity</p>
-                        <p className="font-semibold">68%</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-accent rounded-full"></div>
-                      <div>
-                        <p className="text-muted-foreground">Wind Speed</p>
-                        <p className="font-semibold">12 km/h</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-warning rounded-full"></div>
-                      <div>
-                        <p className="text-muted-foreground">UV Index</p>
-                        <p className="font-semibold">6 (High)</p>
-                      </div>
-                    </div>
-                  </div>
+                  )}
                 </CardContent>
               </Card>
             </div>

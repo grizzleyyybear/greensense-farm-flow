@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { 
-  HelpCircle, 
-  MessageSquare, 
-  Phone, 
-  Mail, 
+import {
+  HelpCircle,
+  MessageSquare,
+  Phone,
+  Mail,
   Book,
   Video,
   Users,
@@ -13,13 +13,10 @@ import {
   CheckCircle,
   ArrowRight
 } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-interface HelpPageProps {
-  language: string;
-  onClose: () => void;
-}
-
-export const HelpPage = ({ language, onClose }: HelpPageProps) => {
+export const HelpPage = () => {
+  const { language } = useLanguage();
   const translations = {
     en: {
       title: "Help & Support Center",

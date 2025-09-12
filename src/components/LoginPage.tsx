@@ -5,12 +5,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Leaf, Eye, EyeOff, Smartphone, Shield, Zap } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-interface LoginPageProps {
-  language: string;
-}
-
-export const LoginPage = ({ language }: LoginPageProps) => {
+export const LoginPage = () => {
+  const { language } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
 

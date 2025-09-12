@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { 
-  Home, 
-  BarChart3, 
-  Users, 
-  LogIn, 
-  Menu, 
-  X, 
+import { Link, useLocation } from 'react-router-dom';
+import {
+  Home,
+  BarChart3,
+  Users,
+  LogIn,
+  Menu,
+  X,
   Globe,
   HelpCircle,
   Leaf,
@@ -22,15 +23,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { getTranslation } from '@/lib/translations';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-interface NavigationProps {
-  currentPage: string;
-  onPageChange: (page: string) => void;
-  language: string;
-  onLanguageChange: (language: string) => void;
-}
-
-export const Navigation = ({ currentPage, onPageChange, language, onLanguageChange }: NavigationProps) => {
+export const Navigation = () => {
+  const location = useLocation();
+  const { language, setLanguage } = useLanguage();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const t = getTranslation(language);
 
@@ -77,16 +74,19 @@ export const Navigation = ({ currentPage, onPageChange, language, onLanguageChan
             <div className="hidden md:flex items-center gap-6">
               {navigationItems.map((item) => {
                 const IconComponent = item.icon;
+                const isActive = location.pathname === `/${item.id}`;
                 return (
                   <Button
                     key={item.id}
-                    variant={currentPage === item.id ? "default" : "ghost"}
+                    variant={isActive ? "default" : "ghost"}
                     size="sm"
-                    onClick={() => onPageChange(item.id)}
+                    asChild
                     className="gap-2 transition-all hover:scale-105"
                   >
-                    <IconComponent className="h-4 w-4" />
-                    {item.label}
+                    <Link to={`/${item.id}`}>
+                      <IconComponent className="h-4 w-4" />
+                      {item.label}
+                    </Link>
                   </Button>
                 );
               })}
@@ -100,9 +100,9 @@ export const Navigation = ({ currentPage, onPageChange, language, onLanguageChan
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   {languages.map((lang) => (
-                    <DropdownMenuItem 
+                    <DropdownMenuItem
                       key={lang.code}
-                      onClick={() => onLanguageChange(lang.code)}
+                      onClick={() => setLanguage(lang.code)}
                       className={language === lang.code ? "bg-accent" : ""}
                     >
                       {lang.name}
@@ -127,22 +127,22 @@ export const Navigation = ({ currentPage, onPageChange, language, onLanguageChan
               <div className="flex flex-col gap-2">
                 {navigationItems.map((item) => {
                   const IconComponent = item.icon;
+                  const isActive = location.pathname === `/${item.id}`;
                   return (
                     <Button
                       key={item.id}
-                      variant={currentPage === item.id ? "default" : "ghost"}
+                      variant={isActive ? "default" : "ghost"}
                       className="justify-start gap-2"
-                      onClick={() => {
-                        onPageChange(item.id);
-                        setIsMobileMenuOpen(false);
-                      }}
+                      asChild
                     >
-                      <IconComponent className="h-4 w-4" />
-                      {item.label}
+                      <Link to={`/${item.id}`} onClick={() => setIsMobileMenuOpen(false)}>
+                        <IconComponent className="h-4 w-4" />
+                        {item.label}
+                      </Link>
                     </Button>
                   );
                 })}
-                
+
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="justify-start gap-2 mt-2">
@@ -152,9 +152,9 @@ export const Navigation = ({ currentPage, onPageChange, language, onLanguageChan
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     {languages.map((lang) => (
-                      <DropdownMenuItem 
+                      <DropdownMenuItem
                         key={lang.code}
-                        onClick={() => onLanguageChange(lang.code)}
+                        onClick={() => setLanguage(lang.code)}
                       >
                         {lang.name}
                       </DropdownMenuItem>
@@ -171,10 +171,12 @@ export const Navigation = ({ currentPage, onPageChange, language, onLanguageChan
         <Button 
           size="lg" 
           className="rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 bg-gradient-to-r from-primary to-secondary"
-          onClick={() => onPageChange('help')}
+          asChild
         >
-          <HelpCircle className="h-5 w-5 mr-2" />
-          {t.help}
+          <Link to="/help">
+            <HelpCircle className="h-5 w-5 mr-2" />
+            {t.help}
+          </Link>
         </Button>
       </div>
     </>
