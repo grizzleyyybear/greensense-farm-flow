@@ -58,9 +58,9 @@ export const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-accent/10 to-secondary/20">
 
-      <div 
+      <div
         className="relative h-64 bg-gradient-to-r from-primary/30 via-secondary/30 to-accent/30 flex items-center justify-center overflow-hidden"
-        style={{ 
+        style={{
           backgroundImage: `linear-gradient(rgba(240, 135, 135, 0), rgba(255, 199, 167, 0)), url(${heroImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center'
@@ -92,8 +92,8 @@ export const Dashboard = () => {
       </div>
 
       {selectedPlot ? (
-        <PlantDetailView 
-          plotId={selectedPlot} 
+        <PlantDetailView
+          plotId={selectedPlot}
           onBack={() => setSelectedPlot(null)}
         />
       ) : (
@@ -101,10 +101,10 @@ export const Dashboard = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
             <Card className="lg:col-span-2 border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 hover:shadow-lg">
               <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Leaf className="h-5 w-5 text-healthy" />
-                    {t.farmOverview}
-                  </CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <Leaf className="h-5 w-5 text-healthy" />
+                  {t.farmOverview}
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <PlotGrid onPlotSelect={setSelectedPlot} />
@@ -122,12 +122,12 @@ export const Dashboard = () => {
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">{t.autoMode}</span>
-                    <Switch 
+                    <Switch
                       checked={automatedMode}
                       onCheckedChange={setAutomatedMode}
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span>{t.pesticideLevel}</span>
@@ -140,7 +140,7 @@ export const Dashboard = () => {
                     </div>
                   </div>
 
-                  <Button 
+                  <Button
                     onClick={handleManualSpray}
                     className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90"
                     variant={automatedMode ? "secondary" : "default"}
@@ -179,28 +179,30 @@ export const Dashboard = () => {
                         <div className="w-2 h-2 bg-primary rounded-full"></div>
                         <div>
                           <p className="text-muted-foreground">Temperature</p>
-                          <p className="font-semibold">{weatherData?.temperature || 24}°C</p>
+                          <p className="font-semibold">{weatherData?.temperature || "--"}°C</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-secondary rounded-full"></div>
                         <div>
                           <p className="text-muted-foreground">Humidity</p>
-                          <p className="font-semibold">{weatherData?.humidity || 68}%</p>
+                          <p className="font-semibold">{weatherData?.humidity || "--"}%</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-accent rounded-full"></div>
                         <div>
                           <p className="text-muted-foreground">Wind Speed</p>
-                          <p className="font-semibold">{weatherData?.windSpeed || 12} km/h</p>
+                          <p className="font-semibold">{weatherData?.windSpeed || "--"} km/h</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-warning rounded-full"></div>
                         <div>
                           <p className="text-muted-foreground">UV Index</p>
-                          <p className="font-semibold">6 (High)</p>
+                          <p className="font-semibold">
+                            {weatherData?.uvIndex !== undefined ? weatherData.uvIndex : "--"}
+                          </p>
                         </div>
                       </div>
                     </div>

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Home,
-  BarChart3,
   Users,
   LogIn,
   Menu,
@@ -24,6 +23,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { getTranslation } from '@/lib/translations';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 
 export const Navigation = () => {
   const location = useLocation();
@@ -33,7 +33,6 @@ export const Navigation = () => {
 
   const navigationItems = [
     { id: 'dashboard', label: t.dashboard, icon: Home },
-    { id: 'login', label: t.login, icon: LogIn },
     { id: 'about', label: t.about, icon: Users },
   ];
 
@@ -71,7 +70,7 @@ export const Navigation = () => {
               </div>
             </div>
 
-            <div className="hidden md:flex items-center gap-6">
+            <div className="hidden md:flex items-center gap-6 flex-1 justify-end">
               {navigationItems.map((item) => {
                 const IconComponent = item.icon;
                 const isActive = location.pathname === `/${item.id}`;
@@ -90,10 +89,29 @@ export const Navigation = () => {
                   </Button>
                 );
               })}
-              
+
+              {/* Auth section: login or profile */}
+              <div className="flex items-center ml-4">
+                <SignedOut>
+                  <Button
+                    size="sm"
+                    asChild
+                    className="gap-2"
+                  >
+                    <Link to="/login">
+                      <LogIn className="h-4 w-4" />
+                      {t.login}
+                    </Link>
+                  </Button>
+                </SignedOut>
+                <SignedIn>
+                  <UserButton afterSignOutUrl="/home" />
+                </SignedIn>
+              </div>
+
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="gap-2">
+                  <Button variant="outline" size="sm" className="gap-2 ml-4">
                     <Globe className="h-4 w-4" />
                     {t.language}: {getCurrentLanguageName()}
                   </Button>
@@ -161,6 +179,24 @@ export const Navigation = () => {
                     ))}
                   </DropdownMenuContent>
                 </DropdownMenu>
+
+                {/* Auth section for mobile */}
+                <SignedOut>
+                  <Button
+                    className="justify-start gap-2 mt-2"
+                    asChild
+                  >
+                    <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                      <LogIn className="h-4 w-4" />
+                      {t.login}
+                    </Link>
+                  </Button>
+                </SignedOut>
+                <SignedIn>
+                  <div className="mt-2 flex justify-start">
+                    <UserButton afterSignOutUrl="/home" />
+                  </div>
+                </SignedIn>
               </div>
             </div>
           )}
@@ -168,8 +204,8 @@ export const Navigation = () => {
       </nav>
 
       <div className="fixed bottom-4 right-4 z-50">
-        <Button 
-          size="lg" 
+        <Button
+          size="lg"
           className="rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 bg-gradient-to-r from-primary to-secondary"
           asChild
         >

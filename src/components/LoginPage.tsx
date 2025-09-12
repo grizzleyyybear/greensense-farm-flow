@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Leaf, Eye, EyeOff, Smartphone, Shield, Zap } from 'lucide-react';
+import { Leaf, Smartphone, Shield, Zap } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { SignIn, SignUp } from "@clerk/clerk-react";
 
 export const LoginPage = () => {
   const { language } = useLanguage();
-  const [showPassword, setShowPassword] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
 
   const translations = {
@@ -28,7 +26,7 @@ export const LoginPage = () => {
       switchToLogin: "Already have an account? Sign in",
       features: {
         monitoring: "Real-time Crop Monitoring",
-        pesticide: "Smart Pesticide Control", 
+        pesticide: "Smart Pesticide Control",
         analytics: "Advanced Analytics"
       }
     },
@@ -77,7 +75,7 @@ export const LoginPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-accent/20 to-secondary/30 flex items-center justify-center p-4">
       <div className="w-full max-w-6xl grid lg:grid-cols-2 gap-8 items-center">
-        
+
         <div className="hidden lg:block space-y-8">
           <div className="text-center space-y-4">
             <div className="flex items-center justify-center gap-3 mb-6">
@@ -149,61 +147,18 @@ export const LoginPage = () => {
           </CardHeader>
 
           <CardContent className="space-y-4">
-            {!isLogin && (
-              <div className="space-y-2">
-                <Label htmlFor="farmName">{t.farmName}</Label>
-                <Input id="farmName" placeholder={t.farmName} />
-              </div>
+            {isLogin ? (
+              <SignIn
+              fallbackRedirectUrl="/dashboard"
+                appearance={{ variables: { colorPrimary: "#22c55e" } }}
+              />
+            ) : (
+              <SignUp
+              fallbackRedirectUrl="/dashboard"
+                appearance={{ variables: { colorPrimary: "#22c55e" } }}
+              />
             )}
-
-            <div className="space-y-2">
-              <Label htmlFor="email">{t.email}</Label>
-              <Input id="email" type="email" placeholder={t.email} />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="password">{t.password}</Label>
-              <div className="relative">
-                <Input 
-                  id="password" 
-                  type={showPassword ? "text" : "password"} 
-                  placeholder={t.password} 
-                />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                </Button>
-              </div>
-            </div>
-
-            {!isLogin && (
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword">{t.confirmPassword}</Label>
-                <Input id="confirmPassword" type="password" placeholder={t.confirmPassword} />
-              </div>
-            )}
-
-            <Button 
-              className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-semibold py-2"
-              size="lg"
-            >
-              {isLogin ? t.loginButton : t.signupButton}
-            </Button>
-
-            <div className="text-center">
-              <Button
-                variant="link"
-                onClick={() => setIsLogin(!isLogin)}
-                className="text-sm"
-              >
-                {isLogin ? t.switchToSignup : t.switchToLogin}
-              </Button>
-            </div>
+            
           </CardContent>
         </Card>
       </div>
