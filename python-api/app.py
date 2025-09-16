@@ -2,12 +2,15 @@ from flask import Flask, request, jsonify
 import tensorflow as tf
 import numpy as np
 import json
+from io import BytesIO
+from flask_cors import CORS
 from keras.utils import load_img, img_to_array
 
 app = Flask(__name__)
+CORS(app) 
 
-model = tf.keras.models.load_model('plant_disease_model_final.keras')
-with open('class_names_final.json') as f:
+model = tf.keras.models.load_model("./model-files/plant_disease_model_final.keras")
+with open("./model-files/class_names_final.json") as f:
     class_names = json.load(f)
 
 # cleaner names to display
@@ -56,11 +59,18 @@ pesticide_suggestions = {
 
 @app.route('/predict', methods=['POST'])
 def predict():
+
+    #checking if file exist
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file uploaded'}), 400
+    
     #fetching the file
     file = request.files['file']
 
+    # Convert to BytesIO
+    img = load_img(BytesIO(file.read()), target_size=(128, 128))
+
     #required preprocessing
-    img = load_img(file, target_size=(128, 128))
     img_array = img_to_array(img) / 255.0
     img_array = np.expand_dims(img_array, axis=0)
 
