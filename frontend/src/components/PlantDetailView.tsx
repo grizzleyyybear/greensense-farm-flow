@@ -3,15 +3,37 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { mockAIModel } from '../lib/mockAIModel';
+
+interface Plot {
+  plotId: string;
+  status: string;
+  pestSuggest?: string;
+  confidenceLevel?: number;
+  reason?: string;
+  healthScore?: number;
+  imageUrl?: string;
+}
 
 interface PlantDetailViewProps {
   plotId: string;
+  plots: Plot[];
   onBack: () => void;
 }
 
-export const PlantDetailView = ({ plotId, onBack }: PlantDetailViewProps) => {
-  const { status, reason, healthScore } = mockAIModel(plotId, 0.5);
+export const PlantDetailView = ({ plotId, plots, onBack }: PlantDetailViewProps) => {
+  const plot = plots.find((p) => p.plotId === plotId);
+
+  if (!plot) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <Button variant="ghost" onClick={onBack} className="mb-4">
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          Back to Dashboard
+        </Button>
+        <h1 className="text-2xl font-bold">Plot not found</h1>
+      </div>
+    );
+  }
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -29,15 +51,15 @@ export const PlantDetailView = ({ plotId, onBack }: PlantDetailViewProps) => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <Button 
-          variant="ghost" 
+        <Button
+          variant="ghost"
           onClick={onBack}
           className="mb-4"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Dashboard
         </Button>
-        <h1 className="text-3xl font-bold">Plot {plotId} - Detailed Analysis</h1>
+        <h1 className="text-3xl font-bold">Plot {plot.plotId} - Detailed Analysis</h1>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -45,27 +67,23 @@ export const PlantDetailView = ({ plotId, onBack }: PlantDetailViewProps) => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Camera className="h-5 w-5" />
-              Live Camera Feed
+              Plot Image
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="aspect-video bg-muted rounded-lg flex items-center justify-center mb-4">
-              <div className="text-center">
+            {plot.imageUrl ? (
+              <img
+                src={plot.imageUrl}
+                alt="Plot"
+                className="w-full h-48 lg:h-80 object-cover rounded mb-4"
+              />
+            ) : (
+              <div className="aspect-video bg-muted rounded-lg flex items-center justify-center mb-4">
                 <Camera className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
-                <p className="text-muted-foreground">Live feed from Plot {plotId}</p>
-                <p className="text-sm text-muted-foreground">Camera ID: CAM-{plotId}-001</p>
+                <p className="text-muted-foreground">No image available</p>
               </div>
-            </div>
-            
-            <div className="flex justify-between items-center">
-              <Badge variant="outline" className="text-info">
-                Live • Recording
-              </Badge>
-              <Button variant="outline" size="sm">
-                <Camera className="h-4 w-4 mr-2" />
-                Capture Image
-              </Button>
-            </div>
+            )}
+            {/* You can add a capture button here if needed */}
           </CardContent>
         </Card>
 
@@ -77,22 +95,37 @@ export const PlantDetailView = ({ plotId, onBack }: PlantDetailViewProps) => {
             <CardContent className="space-y-4">
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <span className="font-medium">Health Score</span>
-                  <span className="text-lg font-bold">{healthScore}%</span>
+                  <span className="font-medium">Confidence Level</span>
+                  <span className="text-lg font-bold">
+                    {plot.confidenceLevel !== undefined ? (plot.confidenceLevel * 100).toFixed(1) : '--'}%
+                  </span>
                 </div>
-                <Progress value={healthScore} className="h-3" />
+                <Progress value={plot.confidenceLevel !== undefined ? plot.confidenceLevel * 100 : 0} className="h-3" />
               </div>
 
-              <Badge className={getStatusColor(status)}>
-                {status === 'healthy' ? 'Healthy Crop' : 
-                 status === 'mild' ? 'Mild Infection Detected' : 
-                 'Severe Infection - Action Required'}
+              <Badge className={getStatusColor(plot.status)}>
+                {plot.status === 'healthy'
+                  ? 'Healthy Crop'
+                  : plot.status === 'mild'
+                    ? 'Mild Infection Detected'
+                    : plot.status === 'severe'
+                      ? 'Severe Infection - Action Required'
+                      : plot.status}
               </Badge>
 
-              <div className="p-3 bg-muted rounded-lg">
-                <p className="text-sm font-medium mb-1">AI Analysis:</p>
-                <p className="text-sm text-muted-foreground">{reason}</p>
-              </div>
+              {plot.reason && (
+                <div className="p-3 bg-muted rounded-lg">
+                  <p className="text-sm font-medium mb-1">AI Analysis:</p>
+                  <p className="text-sm text-muted-foreground">{plot.reason}</p>
+                </div>
+              )}
+
+              {plot.pestSuggest && (
+                <div className="p-3 bg-muted rounded-lg">
+                  <p className="text-sm font-medium mb-1">Pest Suggestion:</p>
+                  <p className="text-sm text-muted-foreground">{plot.pestSuggest}</p>
+                </div>
+              )}
             </CardContent>
           </Card>
 

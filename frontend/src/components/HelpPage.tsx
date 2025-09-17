@@ -14,8 +14,10 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useNavigate } from "react-router-dom";
 
 export const HelpPage = () => {
+  const navigate = useNavigate();
   const { language } = useLanguage();
   const translations = {
     en: {
@@ -29,7 +31,7 @@ export const HelpPage = () => {
       backToDashboard: "Back to Dashboard"
     },
     hi: {
-      title: "सहायता और समर्थन केंद्र", 
+      title: "सहायता और समर्थन केंद्र",
       subtitle: "अपने ग्रीनसेंस अनुभव को अधिकतम करने के लिए आवश्यक सहायता प्राप्त करें",
       quickHelp: "त्वरित सहायता",
       contactSupport: "समर्थन से संपर्क करें",
@@ -42,7 +44,7 @@ export const HelpPage = () => {
       title: "ਸਹਾਇਤਾ ਅਤੇ ਸਹਾਇਤਾ ਕੇਂਦਰ",
       subtitle: "ਆਪਣੇ ਗ੍ਰੀਨਸੈਂਸ ਅਨੁਭਵ ਨੂੰ ਵੱਧ ਤੋਂ ਵੱਧ ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਸਹਾਇਤਾ ਪ੍ਰਾਪਤ ਕਰੋ",
       quickHelp: "ਤੁਰੰਤ ਸਹਾਇਤਾ",
-      contactSupport: "ਸਹਾਇਤਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ", 
+      contactSupport: "ਸਹਾਇਤਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ",
       resources: "ਸਿੱਖਣ ਦੇ ਸਾਧਨ",
       faq: "ਅਕਸਰ ਪੁੱਛੇ ਜਾਣ ਵਾਲੇ ਸਵਾਲ",
       emergency: "ਸੰਕਟਕਾਲੀਨ ਸਹਾਇਤਾ",
@@ -60,7 +62,7 @@ export const HelpPage = () => {
       color: "text-primary"
     },
     {
-      title: "Live Chat Support", 
+      title: "Live Chat Support",
       description: "Connect with our technical experts for instant assistance",
       icon: MessageSquare,
       color: "text-secondary"
@@ -98,10 +100,14 @@ export const HelpPage = () => {
     }
   ];
 
+  const onClose = () => {
+    navigate("/dashboard");
+  };
+
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-background max-w-6xl w-full max-h-[90vh] overflow-y-auto rounded-lg shadow-2xl">
-        
+
         <div className="bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 p-8 text-center">
           <div className="flex justify-center mb-4">
             <HelpCircle className="h-16 w-16 text-primary" />
@@ -111,7 +117,7 @@ export const HelpPage = () => {
         </div>
 
         <div className="p-8 space-y-8">
-          
+
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold">{t.quickHelp}</h2>
             <Button variant="outline" onClick={onClose}>
@@ -136,7 +142,7 @@ export const HelpPage = () => {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8">
-            
+
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -152,7 +158,7 @@ export const HelpPage = () => {
                     <p className="text-sm text-muted-foreground">24/7 Critical Support: +1-800-GREEN-911</p>
                   </div>
                 </div>
-                
+
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
                     <Phone className="h-4 w-4 text-secondary" />
@@ -167,7 +173,7 @@ export const HelpPage = () => {
                     <span>Live Chat: Available 6 AM - 10 PM</span>
                   </div>
                 </div>
-                
+
                 <Button className="w-full bg-gradient-to-r from-secondary to-accent">
                   Start Live Chat
                 </Button>

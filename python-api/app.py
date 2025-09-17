@@ -83,6 +83,7 @@ def predict():
     disease = display_names.get(predicted_class, predicted_class)
 
     pesticide = pesticide_suggestions.get(disease, "No pesticide suggestion available")
+    print(f"Disease: {disease}, Confidence: {confidence}, Pesticide: {pesticide}")
 
     return jsonify({
         'predicted_class': disease,

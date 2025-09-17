@@ -3,9 +3,17 @@ import multer from 'multer';
 import axios from 'axios';
 import FormData from 'form-data';
 import User from '../models/User.js';
+import { v2 as cloudinary } from 'cloudinary';
+import streamifier from 'streamifier';
 
 const router = express.Router();
 const upload = multer(); // memory storage by default
+
+cloudinary.config({
+  cloud_name: process.env.CLD_CLOUD_NAME,
+  api_key: process.env.CLD_API,
+  api_secret: process.env.CLD_API_SECRET,
+});
 
 router.post('/user/add-plot', upload.single('leafImage'), async (req, res) => {
   try {
@@ -16,7 +24,23 @@ router.post('/user/add-plot', upload.single('leafImage'), async (req, res) => {
       return res.status(400).json({ error: 'No email provided' });
     }
 
-    // forward file to Flask model service
+    // 1. Upload image to Cloudinary
+    const uploadFromBuffer = (buffer) => {
+      return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { resource_type: 'image' },
+          (error, result) => {
+            if (error) return reject(error);
+            resolve(result.secure_url);
+          }
+        );
+        streamifier.createReadStream(buffer).pipe(stream);
+      });
+    };
+
+    const cloudImageUrl = await uploadFromBuffer(req.file.buffer);
+
+    // 2. Forward file to Flask model service for prediction
     const formData = new FormData();
     formData.append('file', req.file.buffer, req.file.originalname);
 
@@ -24,16 +48,15 @@ router.post('/user/add-plot', upload.single('leafImage'), async (req, res) => {
       headers: formData.getHeaders(),
     });
 
-    // ensure Flask returns confidence too
     const { predicted_class, confidence, pestSuggest } = flaskRes.data;
 
-    // create a new plot object in MongoDB
+    // 3. Save plot with Cloudinary image URL
     const newPlot = {
       plotId: Date.now().toString(),
       status: predicted_class,
       pestSuggest: pestSuggest,
-      confidenceLevel: confidence ?? 0, // fallback
-      imageUrl: '/uploads/' + req.file.originalname, // or your S3/cloud URL
+      confidenceLevel: confidence ?? 0,
+      imageUrl: cloudImageUrl,
     };
 
     await User.updateOne(

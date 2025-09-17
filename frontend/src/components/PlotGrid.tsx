@@ -6,8 +6,10 @@ import { Leaf, AlertTriangle, X, Plus } from 'lucide-react';
 interface Plot {
   plotId: string;
   status: string;
-  reason: string;
-  healthScore: number;
+  pestSuggest?: string;
+  confidenceLevel?: number;
+  reason?: string;
+  healthScore?: number;
   imageUrl?: string;
 }
 
@@ -100,21 +102,40 @@ export const PlotGrid = ({ plots = [], onPlotSelect, onAddPlot }: PlotGridProps)
                   <h3 className="font-semibold text-lg">Plot {plot.plotId}</h3>
                   {getStatusIcon(plot.status)}
                 </div>
+                {plot.imageUrl && (
+                  <img
+                    src={plot.imageUrl}
+                    alt="Plot"
+                    className="w-full h-32 object-cover rounded mb-2"
+                  />
+                )}
                 <div className="space-y-2">
                   <Badge
                     variant="outline"
                     className={getStatusColor(plot.status)}
                   >
-                    {plot.status === 'healthy'
-                      ? 'Healthy'
-                      : plot.status === 'mild'
-                        ? 'Mild Infection'
-                        : 'Severe Infection'}
+                    {plot.status}
                   </Badge>
-                  <div className="text-sm text-muted-foreground">
-                    <p>Health: {plot.healthScore}%</p>
-                    <p className="truncate">{plot.reason}</p>
-                  </div>
+                  {plot.pestSuggest && (
+                    <div className="text-xs text-muted-foreground">
+                      <strong>Pest Suggestion:</strong> {plot.pestSuggest}
+                    </div>
+                  )}
+                  {plot.confidenceLevel !== undefined && (
+                    <div className="text-xs text-muted-foreground">
+                      <strong>Confidence:</strong> {(plot.confidenceLevel * 100).toFixed(1)}%
+                    </div>
+                  )}
+                  {plot.healthScore !== undefined && (
+                    <div className="text-xs text-muted-foreground">
+                      <strong>Health:</strong> {plot.healthScore}%
+                    </div>
+                  )}
+                  {plot.reason && (
+                    <div className="text-xs text-muted-foreground">
+                      <strong>Reason:</strong> {plot.reason}
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>

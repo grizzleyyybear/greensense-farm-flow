@@ -9,7 +9,6 @@ import { PlotGrid } from './PlotGrid';
 import { PlantDetailView } from './PlantDetailView';
 import { InfectionChart } from './InfectionChart';
 import { NotificationCenter } from './NotificationCenter';
-import { mockAIModel } from '../lib/mockAIModel';
 import { getTranslation } from '@/lib/translations';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { fetchWeather, getUserLocation, WeatherData } from '@/lib/weatherApi';
@@ -26,6 +25,7 @@ export const Dashboard = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [weatherLoading, setWeatherLoading] = useState(true);
   const [plots, setPlots] = useState([]); // Add this line
+  const [showAllPlots, setShowAllPlots] = useState(false);
   const t = getTranslation(language);
 
   useEffect(() => {
@@ -93,6 +93,14 @@ export const Dashboard = () => {
     fetchUser();
   }, [email]);
 
+  // Sort plots by plotId descending (most recent first)
+  const sortedPlots = [...plots].sort(
+    (a, b) => Number(b.plotId) - Number(a.plotId)
+  );
+
+  // For PlotGrid, show only first 6 unless showAllPlots is true
+  const plotsToShow = showAllPlots ? sortedPlots : sortedPlots.slice(0, 6);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-accent/10 to-secondary/20">
 
@@ -132,6 +140,7 @@ export const Dashboard = () => {
       {selectedPlot ? (
         <PlantDetailView
           plotId={selectedPlot}
+          plots={plots}
           onBack={() => setSelectedPlot(null)}
         />
       ) : (
@@ -146,10 +155,20 @@ export const Dashboard = () => {
               </CardHeader>
               <CardContent>
                 <PlotGrid
-                  plots={plots}
+                  plots={plotsToShow}
                   onPlotSelect={setSelectedPlot}
                   onAddPlot={handleAddPlot}
                 />
+                {sortedPlots.length > 6 && (
+                  <div className="flex justify-center mt-4">
+                    <Button
+                      variant="outline"
+                      onClick={() => setShowAllPlots((prev) => !prev)}
+                    >
+                      {showAllPlots ? "Show Less" : "Show More"}
+                    </Button>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -322,7 +341,48 @@ export const Dashboard = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <NotificationCenter />
+                {/* Recent Activity Section */}
+                {plots && plots.length > 0 ? (
+                  <div className="space-y-3">
+                    {[...plots]
+                      .sort((a, b) => {
+                        const aTime = a.createdAt
+                          ? new Date(a.createdAt).getTime()
+                          : Number(a.plotId) || 0;
+                        const bTime = b.createdAt
+                          ? new Date(b.createdAt).getTime()
+                          : Number(b.plotId) || 0;
+                        return bTime - aTime;
+                      })
+                      .slice(0, 5)
+                      .map((plot) => (
+                        <div key={plot.plotId} className="flex items-center gap-4 p-3 bg-muted rounded-lg">
+                          {plot.imageUrl && (
+                            <img
+                              src={plot.imageUrl}
+                              alt="Plot"
+                              className="w-12 h-12 object-cover rounded"
+                            />
+                          )}
+                          <div>
+                            <div className="font-semibold">Plot {plot.plotId}</div>
+                            <div className="text-xs text-muted-foreground">
+                              Status: {plot.status} | Confidence: {plot.confidenceLevel !== undefined ? (plot.confidenceLevel * 100).toFixed(1) : '--'}%
+                            </div>
+                            <div className="text-xs text-muted-foreground">
+                              {plot.createdAt
+                                ? new Date(plot.createdAt).toLocaleString()
+                                : plot.plotId
+                                  ? new Date(Number(plot.plotId)).toLocaleString()
+                                  : ''}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                ) : (
+                  <div className="text-muted-foreground">No recent activity yet.</div>
+                )}
               </CardContent>
             </Card>
           </div>
