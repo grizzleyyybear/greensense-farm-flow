@@ -23,11 +23,17 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/" element={<AppLayout />}>
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="login" element={<LoginPage />} />
-              <Route path="about" element={<AboutPage />} />
-              <Route path="help" element={<HelpPage />} />
+            <Route path="/dashboard" element={<AppLayout />}>
+              <Route index element={<Dashboard />} />
+            </Route>
+            <Route path="/login" element={<AppLayout />}>
+              <Route index element={<LoginPage />} />
+            </Route>
+            <Route path="/about" element={<AppLayout />}>
+              <Route index element={<AboutPage />} />
+            </Route>
+            <Route path="/help" element={<AppLayout />}>
+              <Route index element={<HelpPage />} />
             </Route>
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
