@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import weatherRoute from './routes/weather.js';
 import userRoute from './routes/user.js';
+import predictRoute from './routes/predict.js';
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
     .catch(err => console.error('MongoDB error:', err));
 
 // Use routes
+app.use('/api', predictRoute);
 app.use('/api/weather', weatherRoute);
 app.use('/api/user', userRoute);
 

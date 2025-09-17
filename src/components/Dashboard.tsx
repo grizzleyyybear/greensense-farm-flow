@@ -62,11 +62,16 @@ export const Dashboard = () => {
   const handleAddPlot = async (file: File) => {
     if (!email) return; // Don't proceed if email is not loaded
     try {
+      const formData = new FormData();
+      formData.append('leafImage', file);
+      formData.append('email', email);
+
       const response = await fetch('http://localhost:5000/api/user/add-plot', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
+        // headers: { 'Content-Type': 'application/json' },
+        body: formData
       });
+
       const updatedUser = await response.json();
       setPlots(updatedUser.plots || []);
     } catch (err) {

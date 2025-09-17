@@ -3,8 +3,8 @@ import mongoose from 'mongoose';
 const plotSchema = new mongoose.Schema({
     plotId: { type: String, required: true },
     status: { type: String, required: true },
-    healthScore: { type: Number, required: true },
-    reason: { type: String },
+    pestSuggest: {type: String, required: true},
+    confidenceLevel: { type: Number, required: true },
     imageUrl: { type: String }
 });
 
