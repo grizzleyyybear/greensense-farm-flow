@@ -9,17 +9,17 @@ export interface WeatherData {
   uvIndex?: number; // optional, can be fetched from another API if needed
 }
 
-export async function fetchWeather(city: string): Promise<WeatherData>;
-export async function fetchWeather(lat: number, lon: number): Promise<WeatherData>;
-export async function fetchWeather(location: string | { lat: number; lon: number }): Promise<WeatherData> {
+export async function fetchWeather(locationOrLat: string | number, lon?: number): Promise<WeatherData> {
   try {
     let coordinates: { lat: number; lon: number };
 
-    if (typeof location === 'string') {
+    if (typeof locationOrLat === 'string') {
       // For Indian cities, we'll use coordinates
-      coordinates = getIndianCityCoordinates(location);
+      coordinates = getIndianCityCoordinates(locationOrLat);
+    } else if (typeof locationOrLat === 'number' && lon !== undefined) {
+      coordinates = { lat: locationOrLat, lon };
     } else {
-      coordinates = location;
+      throw new Error('Invalid location parameters');
     }
 
     const response = await axios.get(BASE_URL, {

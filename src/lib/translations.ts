@@ -97,6 +97,42 @@ export interface Translation {
   watchTutorials: string;
   faq: string;
   returnToDashboard: string;
+  
+  // Landing Page
+  aiDetection: string;
+  aiDetectionDesc: string;
+  smartMonitoring: string;
+  smartMonitoringDesc: string;
+  waterOptimization: string;
+  waterOptimizationDesc: string;
+  benefit1: string;
+  benefit2: string;
+  benefit3: string;
+  benefit4: string;
+  benefit5: string;
+  benefit6: string;
+  stat1: string;
+  stat2: string;
+  stat3: string;
+  stat4: string;
+  smartAgriculturePro: string;
+  nextGenAgriculture: string;
+  heroTitle: string;
+  heroDescription: string;
+  getStarted: string;
+  learnMore: string;
+  liveMonitoring: string;
+  featuresTitle: string;
+  featuresDescription: string;
+  benefitsTitle: string;
+  successStory: string;
+  testimonial: string;
+  farmerName: string;
+  farmerLocation: string;
+  ctaTitle: string;
+  ctaDescription: string;
+  startFreeTrial: string;
+  allRightsReserved: string;
 }
 
 export const translations: Record<string, Translation> = {
@@ -198,7 +234,43 @@ export const translations: Record<string, Translation> = {
     downloadUserManual: "Download User Manual",
     watchTutorials: "Watch Video Tutorials", 
     faq: "Frequently Asked Questions",
-    returnToDashboard: "Return to Dashboard"
+    returnToDashboard: "Return to Dashboard",
+    
+    // Landing Page
+    aiDetection: "AI Disease Detection",
+    aiDetectionDesc: "Advanced machine learning identifies plant diseases and pests with 95% accuracy",
+    smartMonitoring: "Smart Monitoring", 
+    smartMonitoringDesc: "Real-time crop health monitoring with IoT sensors and satellite imagery",
+    waterOptimization: "Water Optimization",
+    waterOptimizationDesc: "Precision irrigation recommendations based on weather and soil conditions",
+    benefit1: "Reduce pesticide usage by up to 60%",
+    benefit2: "Increase crop yield by 25-40%",
+    benefit3: "Save water with precision irrigation",
+    benefit4: "Early disease detection prevents crop loss",
+    benefit5: "Real-time monitoring 24/7",
+    benefit6: "Multi-language support",
+    stat1: "Farmers Protected",
+    stat2: "Detection Accuracy", 
+    stat3: "Pesticide Reduction",
+    stat4: "Monitoring",
+    smartAgriculturePro: "Smart Agriculture Pro",
+    nextGenAgriculture: "Next Generation Agriculture",
+    heroTitle: "Smart Farming with AI-Powered Precision",
+    heroDescription: "Transform your agricultural practices with cutting-edge AI technology. Detect diseases early, optimize resources, and maximize yields with GreenSense.",
+    getStarted: "Get Started",
+    learnMore: "Learn More",
+    liveMonitoring: "Live Monitoring",
+    featuresTitle: "Powerful Features for Modern Farming",
+    featuresDescription: "Leverage advanced technology to revolutionize your agricultural operations with precision and intelligence.",
+    benefitsTitle: "Proven Results That Drive Success",
+    successStory: "Success Story",
+    testimonial: "GreenSense helped me reduce pesticide costs by 70% while increasing my tomato yield by 35%. The AI detection caught diseases I would have missed!",
+    farmerName: "Rajesh Kumar",
+    farmerLocation: "Tomato Farmer, Punjab",
+    ctaTitle: "Ready to Transform Your Farm?",
+    ctaDescription: "Join thousands of farmers who are already using GreenSense to optimize their crops and maximize profits.",
+    startFreeTrial: "Start Free Trial",
+    allRightsReserved: "All rights reserved."
   },
   
   hi: {
@@ -299,7 +371,43 @@ export const translations: Record<string, Translation> = {
     downloadUserManual: "उपयोगकर्ता मैनुअल डाउनलोड करें",
     watchTutorials: "वीडियो ट्यूटोरियल देखें",
     faq: "अक्सर पूछे जाने वाले प्रश्न",
-    returnToDashboard: "डैशबोर्ड पर वापस जाएं"
+    returnToDashboard: "डैशबोर्ड पर वापस जाएं",
+    
+    // Landing Page
+    aiDetection: "एआई रोग पहचान",
+    aiDetectionDesc: "उन्नत मशीन लर्निंग 95% सटीकता के साथ पौधों की बीमारियों और कीटों की पहचान करती है",
+    smartMonitoring: "स्मार्ट निगरानी",
+    smartMonitoringDesc: "IoT सेंसर और सैटेलाइट इमेजरी के साथ रियल-टाइम फसल स्वास्थ्य निगरानी",
+    waterOptimization: "पानी का अनुकूलन", 
+    waterOptimizationDesc: "मौसम और मिट्टी की स्थिति के आधार पर सटीक सिंचाई सिफारिशें",
+    benefit1: "कीटनाशक के उपयोग को 60% तक कम करें",
+    benefit2: "फसल की उपज 25-40% बढ़ाएं",
+    benefit3: "सटीक सिंचाई के साथ पानी बचाएं",
+    benefit4: "रोग की जल्दी पहचान फसल के नुकसान को रोकती है",
+    benefit5: "24/7 रियल-टाइम निगरानी",
+    benefit6: "बहु-भाषा समर्थन",
+    stat1: "संरक्षित किसान",
+    stat2: "पहचान सटीकता",
+    stat3: "कीटनाशक कमी", 
+    stat4: "निगरानी",
+    smartAgriculturePro: "स्मार्ट कृषि प्रो",
+    nextGenAgriculture: "अगली पीढ़ी की कृषि",
+    heroTitle: "एआई-संचालित सटीकता के साथ स्मार्ट खेती",
+    heroDescription: "अत्याधुनिक एआई तकनीक के साथ अपनी कृषि पद्धतियों को बदलें। ग्रीनसेंस के साथ बीमारियों की जल्दी पहचान करें, संसाधनों का अनुकूलन करें, और उपज को अधिकतम करें।",
+    getStarted: "शुरू करें",
+    learnMore: "और जानें",
+    liveMonitoring: "लाइव निगरानी",
+    featuresTitle: "आधुनिक खेती के लिए शक्तिशाली सुविधाएं",
+    featuresDescription: "सटीकता और बुद्धिमत्ता के साथ अपने कृषि संचालन में क्रांति लाने के लिए उन्नत तकनीक का लाभ उठाएं।",
+    benefitsTitle: "सिद्ध परिणाम जो सफलता लाते हैं",
+    successStory: "सफलता की कहानी",
+    testimonial: "ग्रीनसेंस ने मेरे टमाटर की उपज को 35% बढ़ाते हुए कीटनाशक लागत को 70% कम करने में मदद की। एआई पहचान ने उन बीमारियों को पकड़ा जो मैं चूक जाता!",
+    farmerName: "राजेश कुमार", 
+    farmerLocation: "टमाटर किसान, पंजाब",
+    ctaTitle: "अपने फार्म को बदलने के लिए तैयार हैं?",
+    ctaDescription: "हजारों किसानों से जुड़ें जो पहले से ही अपनी फसलों को अनुकूलित करने और मुनाफे को अधिकतम करने के लिए ग्रीनसेंस का उपयोग कर रहे हैं।",
+    startFreeTrial: "मुफ्त परीक्षण शुरू करें",
+    allRightsReserved: "सभी अधिकार सुरक्षित।"
   },
   
   pa: {
@@ -400,7 +508,43 @@ export const translations: Record<string, Translation> = {
     downloadUserManual: "ਯੂਜ਼ਰ ਮੈਨੁਅਲ ਡਾਊਨਲੋਡ ਕਰੋ",
     watchTutorials: "ਵੀਡੀਓ ਟਿਊਟੋਰਿਅਲ ਵੇਖੋ",
     faq: "ਅਕਸਰ ਪੁੱਛੇ ਜਾਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨ",
-    returnToDashboard: "ਡੈਸ਼ਬੋਰਡ 'ਤੇ ਵਾਪਸ ਜਾਓ"
+    returnToDashboard: "ਡੈਸ਼ਬੋਰਡ 'ਤੇ ਵਾਪਸ ਜਾਓ",
+    
+    // Landing Page
+    aiDetection: "AI ਬਿਮਾਰੀ ਪਛਾਣ",
+    aiDetectionDesc: "ਉੱਨਤ ਮਸ਼ੀਨ ਲਰਨਿੰਗ 95% ਸਹੀਤਾ ਨਾਲ ਪੌਧਿਆਂ ਦੀਆਂ ਬਿਮਾਰੀਆਂ ਅਤੇ ਕੀਟਾਂ ਦੀ ਪਛਾਣ ਕਰਦੀ ਹੈ",
+    smartMonitoring: "ਸਮਾਰਟ ਨਿਗਰਾਨੀ",
+    smartMonitoringDesc: "IoT ਸੈਂਸਰ ਅਤੇ ਸੈਟੇਲਾਈਟ ਇਮੇਜਰੀ ਨਾਲ ਰੀਅਲ-ਟਾਈਮ ਫਸਲ ਸਿਹਤ ਨਿਗਰਾਨੀ",
+    waterOptimization: "ਪਾਣੀ ਅਨੁਕੂਲਨ",
+    waterOptimizationDesc: "ਮੌਸਮ ਅਤੇ ਮਿੱਟੀ ਦੀ ਸਥਿਤੀ ਦੇ ਆਧਾਰ 'ਤੇ ਸਟੀਕ ਸਿੰਚਾਈ ਸਿਫਾਰਸ਼ਾਂ",
+    benefit1: "ਕੀਟਨਾਸ਼ਕ ਵਰਤੋਂ ਨੂੰ 60% ਤੱਕ ਘਟਾਓ",
+    benefit2: "ਫਸਲ ਦੀ ਪੈਦਾਵਾਰ 25-40% ਵਧਾਓ",
+    benefit3: "ਸਟੀਕ ਸਿੰਚਾਈ ਨਾਲ ਪਾਣੀ ਬਚਾਓ",
+    benefit4: "ਬਿਮਾਰੀ ਦੀ ਜਲਦੀ ਪਛਾਣ ਫਸਲ ਦੇ ਨੁਕਸਾਨ ਨੂੰ ਰੋਕਦੀ ਹੈ",
+    benefit5: "24/7 ਰੀਅਲ-ਟਾਈਮ ਨਿਗਰਾਨੀ",
+    benefit6: "ਬਹੁ-ਭਾਸ਼ਾ ਸਮਰਥਨ",
+    stat1: "ਸੁਰੱਖਿਤ ਕਿਸਾਨ",
+    stat2: "ਪਛਾਣ ਸਹੀਤਾ",
+    stat3: "ਕੀਟਨਾਸ਼ਕ ਘਟਾਓ",
+    stat4: "ਨਿਗਰਾਨੀ",
+    smartAgriculturePro: "ਸਮਾਰਟ ਖੇਤੀਬਾੜੀ ਪ੍ਰੋ",
+    nextGenAgriculture: "ਅਗਲੀ ਪੀੜ੍ਹੀ ਦੀ ਖੇਤੀਬਾੜੀ",
+    heroTitle: "AI-ਸੰਚਾਲਿਤ ਸਟੀਕਤਾ ਨਾਲ ਸਮਾਰਟ ਖੇਤੀ",
+    heroDescription: "ਅਤਿ-ਆਧੁਨਿਕ AI ਤਕਨਾਲੋਜੀ ਨਾਲ ਆਪਣੀਆਂ ਖੇਤੀਬਾੜੀ ਪਰੰਪਰਾਵਾਂ ਨੂੰ ਬਦਲੋ। ਗ੍ਰੀਨਸੈਂਸ ਨਾਲ ਬਿਮਾਰੀਆਂ ਦੀ ਜਲਦੀ ਪਛਾਣ ਕਰੋ, ਸਰੋਤਾਂ ਨੂੰ ਅਨੁਕੂਲ ਬਣਾਓ, ਅਤੇ ਪੈਦਾਵਾਰ ਨੂੰ ਵੱਧ ਤੋਂ ਵੱਧ ਕਰੋ।",
+    getStarted: "ਸ਼ੁਰੂ ਕਰੋ",
+    learnMore: "ਹੋਰ ਸਿੱਖੋ",
+    liveMonitoring: "ਲਾਈਵ ਨਿਗਰਾਨੀ",
+    featuresTitle: "ਆਧੁਨਿਕ ਖੇਤੀ ਲਈ ਸ਼ਕਤੀਸ਼ਾਲੀ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ",
+    featuresDescription: "ਸਟੀਕਤਾ ਅਤੇ ਬੁੱਧੀ ਨਾਲ ਆਪਣੇ ਖੇਤੀਬਾੜੀ ਕਾਰਵਾਈਆਂ ਵਿੱਚ ਕ੍ਰਾਂਤੀ ਲਿਆਉਣ ਲਈ ਉੱਨਤ ਤਕਨਾਲੋਜੀ ਦਾ ਲਾਭ ਉਠਾਓ।",
+    benefitsTitle: "ਸਿੱਧ ਨਤੀਜੇ ਜੋ ਸਫਲਤਾ ਲਿਆਉਂਦੇ ਹਨ",
+    successStory: "ਸਫਲਤਾ ਦੀ ਕਹਾਣੀ",
+    testimonial: "ਗ੍ਰੀਨਸੈਂਸ ਨੇ ਮੇਰੇ ਟਮਾਟਰ ਦੀ ਪੈਦਾਵਾਰ ਨੂੰ 35% ਵਧਾਉਂਦੇ ਹੋਏ ਕੀਟਨਾਸ਼ਕ ਦੀ ਲਾਗਤ ਨੂੰ 70% ਘਟਾਉਣ ਵਿੱਚ ਮਦਦ ਕੀਤੀ। AI ਪਛਾਣ ਨੇ ਉਹ ਬਿਮਾਰੀਆਂ ਫੜੀਆਂ ਜੋ ਮੈਂ ਚੁੱਕ ਜਾਂਦਾ!",
+    farmerName: "ਰਾਜੇਸ਼ ਕੁਮਾਰ",
+    farmerLocation: "ਟਮਾਟਰ ਕਿਸਾਨ, ਪੰਜਾਬ",
+    ctaTitle: "ਆਪਣੇ ਫਾਰਮ ਨੂੰ ਬਦਲਣ ਲਈ ਤਿਆਰ ਹੋ?",
+    ctaDescription: "ਹਜ਼ਾਰਾਂ ਕਿਸਾਨਾਂ ਨਾਲ ਜੁੜੋ ਜੋ ਪਹਿਲਾਂ ਤੋਂ ਹੀ ਆਪਣੀਆਂ ਫਸਲਾਂ ਨੂੰ ਅਨੁਕੂਲ ਬਣਾਉਣ ਅਤੇ ਮੁਨਾਫੇ ਨੂੰ ਵੱਧ ਤੋਂ ਵੱਧ ਕਰਨ ਲਈ ਗ੍ਰੀਨਸੈਂਸ ਦਾ ਉਪਯੋਗ ਕਰ ਰਹੇ ਹਨ।",
+    startFreeTrial: "ਮੁਫਤ ਅਜ਼ਮਾਇਸ਼ ਸ਼ੁਰੂ ਕਰੋ",
+    allRightsReserved: "ਸਾਰੇ ਹੱਕ ਰਾਖਵੇਂ ਹਨ।"
   }
 };
 

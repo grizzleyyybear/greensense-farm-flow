@@ -114,7 +114,7 @@ export const HelpPage = () => {
           
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold">{t.quickHelp}</h2>
-            <Button variant="outline" onClick={onClose}>
+            <Button variant="outline" onClick={() => window.history.back()}>
               {t.backToDashboard}
             </Button>
           </div>
