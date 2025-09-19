@@ -4,7 +4,6 @@ import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getTranslation } from '@/lib/translations';
 import heroImage from '@/assets/hero-agriculture.jpg';
-import { Navigation } from './Navigation';
 import { SignedIn } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -15,7 +14,6 @@ export const HomePage = () => {
 
     return (
         <>
-            <Navigation />
             <main className="min-h-screen bg-gradient-to-br from-background via-accent/10 to-secondary/20">
                 <div
                     className="relative h-64 bg-gradient-to-r from-primary/30 via-secondary/30 to-accent/30 flex items-center justify-center overflow-hidden"

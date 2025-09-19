@@ -103,6 +103,25 @@ export const AboutPage = () => {
       role: "likes templeOS",
       description: "slightly annoying but a great coder",
       avatar: "🌱"
+    },
+    // New Team Members
+    {
+      name: "Sumit",
+      role: "Solutions Architect",
+      description: "Building the scalable backbone with MERN, AWS and DevOps.",
+      avatar: "🧑‍💻"
+    },
+    {
+      name: "Toshika Singh",
+      role: "Design Lead",
+      description: "Crafting a seamless user experience.",
+      avatar: "⚙️"
+    },
+    {
+      name: "Kashika",
+      role: "Communications Officer",
+      description: "Connecting our vision with the community, one good conversation at a time.",
+      avatar: "📣"
     }
   ];
 
