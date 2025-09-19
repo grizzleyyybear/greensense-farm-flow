@@ -44,7 +44,8 @@ router.post('/user/add-plot', upload.single('leafImage'), async (req, res) => {
     const formData = new FormData();
     formData.append('file', req.file.buffer, req.file.originalname);
 
-    const flaskRes = await axios.post('http://localhost:5001/predict', formData, {
+    const API_URL = process.env.REACT_APP_MODEL_API_URL;
+    const flaskRes = await axios.post(`${API_URL}/predict`, formData, {
       headers: formData.getHeaders(),
     });
 
