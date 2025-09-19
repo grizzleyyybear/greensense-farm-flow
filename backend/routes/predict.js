@@ -57,7 +57,9 @@ router.post('/user/add-plot', upload.single('leafImage'), async (req, res) => {
       pestSuggest: pestSuggest,
       confidenceLevel: confidence ?? 0,
       imageUrl: cloudImageUrl,
+      sprinklerId: req.body.sprinklerId, // Add this line
     };
+    console.log('New Plot:', newPlot);
 
     await User.updateOne(
       { email: req.body.email },

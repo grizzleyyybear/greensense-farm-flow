@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Leaf, Droplets, Sun, Bell, BarChart3, Settings, Home, Camera, Shield, TrendingUp, Zap, Target } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Leaf, Droplets, Sun, Bell, BarChart3, Settings, Home, Camera, Shield, TrendingUp, Zap, Target, Plus } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -26,6 +26,10 @@ export const Dashboard = () => {
   const [weatherLoading, setWeatherLoading] = useState(true);
   const [plots, setPlots] = useState([]); // Add this line
   const [showAllPlots, setShowAllPlots] = useState(false);
+  const [sprinklerId, setSprinklerId] = useState("");
+  const [sprayDialogOpen, setSprayDialogOpen] = useState(false);
+  const [selectedSprayPlots, setSelectedSprayPlots] = useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const t = getTranslation(language);
 
   useEffect(() => {
@@ -59,16 +63,16 @@ export const Dashboard = () => {
     console.log('Manual spray triggered:', notification);
   };
 
-  const handleAddPlot = async (file: File) => {
-    if (!email) return; // Don't proceed if email is not loaded
+  const handleAddPlot = async (file: File, sprinklerId: string) => {
+    if (!email) return;
     try {
       const formData = new FormData();
       formData.append('leafImage', file);
       formData.append('email', email);
+      formData.append('sprinklerId', sprinklerId); // Add this line
 
       const response = await fetch('http://localhost:5000/api/user/add-plot', {
         method: 'POST',
-        // headers: { 'Content-Type': 'application/json' },
         body: formData
       });
 
@@ -100,6 +104,21 @@ export const Dashboard = () => {
 
   // For PlotGrid, show only first 6 unless showAllPlots is true
   const plotsToShow = showAllPlots ? sortedPlots : sortedPlots.slice(0, 6);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && sprinklerId) {
+      handleAddPlot(file, sprinklerId);
+    } else {
+      alert("Please enter a Sprinkler ID before uploading.");
+    }
+  };
+
+  const handleAddPlotClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-accent/10 to-secondary/20">
@@ -202,7 +221,7 @@ export const Dashboard = () => {
                   </div>
 
                   <Button
-                    onClick={handleManualSpray}
+                    onClick={() => setSprayDialogOpen(true)}
                     className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90"
                     variant={automatedMode ? "secondary" : "default"}
                     disabled={automatedMode}
@@ -345,17 +364,9 @@ export const Dashboard = () => {
                 {plots && plots.length > 0 ? (
                   <div className="space-y-3">
                     {[...plots]
-                      .sort((a, b) => {
-                        const aTime = a.createdAt
-                          ? new Date(a.createdAt).getTime()
-                          : Number(a.plotId) || 0;
-                        const bTime = b.createdAt
-                          ? new Date(b.createdAt).getTime()
-                          : Number(b.plotId) || 0;
-                        return bTime - aTime;
-                      })
-                      .slice(0, 5)
-                      .map((plot) => (
+                      .sort((a, b) => Number(b.plotId) - Number(a.plotId))
+                      .slice(0, 4)
+                      .map(plot => (
                         <div key={plot.plotId} className="flex items-center gap-4 p-3 bg-muted rounded-lg">
                           {plot.imageUrl && (
                             <img
@@ -386,6 +397,125 @@ export const Dashboard = () => {
               </CardContent>
             </Card>
           </div>
+
+
+
+          {sprayDialogOpen && (
+            <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+              <div className="bg-white rounded-xl shadow-2xl p-6 max-w-lg w-full border border-muted">
+                <h2 className="text-xl font-bold mb-4 text-primary flex items-center gap-2">
+                  <Droplets className="h-5 w-5 text-primary" />
+                  Select Plots to Spray
+                </h2>
+                <div className="mb-6 max-h-64 overflow-y-auto space-y-3">
+                  {plots.length === 0 && (
+                    <div className="text-muted-foreground text-center py-8">
+                      No plots available.
+                    </div>
+                  )}
+                  {[...plots]
+                    .sort((a, b) => Number(b.plotId) - Number(a.plotId))
+                    .map(plot => (
+                      <label
+                        key={plot.plotId}
+                        className={`flex items-center gap-4 p-3 rounded-lg border transition cursor-pointer ${selectedSprayPlots.includes(plot.plotId)
+                          ? "border-primary bg-primary/10"
+                          : "border-muted hover:border-primary/40"
+                          }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selectedSprayPlots.includes(plot.plotId)}
+                          onChange={e => {
+                            setSelectedSprayPlots(prev =>
+                              e.target.checked
+                                ? [...prev, plot.plotId]
+                                : prev.filter(id => id !== plot.plotId)
+                            );
+                          }}
+                          className="accent-primary h-5 w-5"
+                        />
+                        <img
+                          src={plot.imageUrl}
+                          alt={`Plot ${plot.plotId}`}
+                          className="w-14 h-14 object-cover rounded shadow border"
+                        />
+                        <div className="flex-1">
+                          <div className="font-semibold text-base">
+                            Plot {plot.plotId}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            Status: {plot.status}
+                          </div>
+                          {plot.sprinklerId && (
+                            <div className="text-xs text-muted-foreground">
+                              Sprinkler: <span className="font-medium">{plot.sprinklerId}</span>
+                            </div>
+                          )}
+                        </div>
+                      </label>
+                    ))}
+                </div>
+                <div className="flex justify-end gap-2 mt-2">
+                  <Button variant="outline" onClick={() => setSprayDialogOpen(false)}>
+                    Cancel
+                  </Button>
+                  <Button
+                    disabled={selectedSprayPlots.length === 0}
+                    onClick={async () => {
+                      const results: string[] = [];
+
+                      const sprayPromises = selectedSprayPlots.map(async (plotId) => {
+                        const plot = plots.find(p => p.plotId === plotId);
+                        if (plot?.sprinklerId && plot?.pestSuggest) {
+                          // Extract pesticide name (A, B, or C) from pestSuggest
+                          const match = plot.pestSuggest.match(/\b([ABC])\b/);
+                          if (match) {
+                            // Map A/B/C to pest_id 1/2/3
+                            const pestLetter = match[1];
+                            let pest_id = 1;
+                            if (pestLetter === "B") pest_id = 2;
+                            if (pestLetter === "C") pest_id = 3;
+
+                            const sprinkler_id = plot.sprinklerId;
+
+                            // Send GET request with query params
+                            try {
+                              const response = await fetch(
+                                `http://192.168.1.19/control?pest_id=${pest_id}&sprinkler_id=${sprinkler_id}`,
+                                { method: "GET" }
+                              );
+                              if (response.status === 200) {
+                                const text = await response.text();
+                                results.push(`Plot ${plot.plotId}: ${text}`);
+                              } else {
+                                results.push(`Plot ${plot.plotId}: Failed (Status ${response.status})`);
+                              }
+                            } catch (err) {
+                              results.push(`Plot ${plot.plotId}: ESP8266 spray command failed`);
+                            }
+                          } else {
+                            results.push(`Plot ${plot.plotId}: No pesticide needed`);
+                          }
+                        }
+                      });
+
+                      await Promise.all(sprayPromises);
+
+                      if (results.length > 0) {
+                        alert(results.join('\n'));
+                      }
+
+                      setSprayDialogOpen(false);
+                      setSelectedSprayPlots([]);
+                    }}
+                  >
+                    Spray Selected
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
