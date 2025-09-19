@@ -12,15 +12,10 @@ import { AboutPage } from "./components/AboutPage";
 import { HelpPage } from "./components/HelpPage";
 import NotFound from "./pages/NotFound";
 import { HomePage } from "./components/HomePage";
-import {
-  SignedIn,
-  SignedOut,
-  RedirectToSignIn,
-} from "@clerk/clerk-react";
+import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 
 const queryClient = new QueryClient();
 
-// This component will protect the dashboard route
 const ProtectedRoute = ({ children }) => {
   return (
     <>
@@ -44,9 +39,13 @@ const App = () => (
         <LanguageProvider>
           <BrowserRouter>
             <Routes>
+              {/* Only ONE route for AppLayout, with all child routes nested inside */}
               <Route path="/" element={<AppLayout />}>
-                {/* Redirect from root to homepage */}
-                <Route index element={<Navigate to="home" replace />} />
+                {/* Redirect from root to homepage as the default index route */}
+                <Route index element={<HomePage />} />
+                {/* You can add a redirect if you want to explicitly redirect from / to /home */}
+                {/* <Route path="/" element={<Navigate to="/home" replace />} /> */}
+                
                 <Route path="home" element={<HomePage />} />
                 
                 {/* Protected Dashboard Route */}
