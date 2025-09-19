@@ -9,7 +9,7 @@ from keras.utils import load_img, img_to_array
 app = Flask(__name__)
 CORS(app) 
 
-model = tf.keras.models.load_model("./model-files/plant_disease_model_final.keras")
+model = tf.keras.models.load_model("./model-files/plant_disease_model_final_86.keras")
 with open("./model-files/class_names_final.json") as f:
     class_names = json.load(f)
 

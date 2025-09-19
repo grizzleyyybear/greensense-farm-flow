@@ -482,7 +482,7 @@ export const Dashboard = () => {
                             // Send GET request with query params
                             try {
                               const response = await fetch(
-                                `http://192.168.1.19/control?pest_id=${pest_id}&sprinkler_id=${sprinkler_id}`,
+                                `/control?pest_id=${pest_id}&sprinkler_id=${sprinkler_id}`,
                                 { method: "GET" }
                               );
                               if (response.status === 200) {
