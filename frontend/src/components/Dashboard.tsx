@@ -31,6 +31,7 @@ export const Dashboard = () => {
   const [selectedSprayPlots, setSelectedSprayPlots] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const t = getTranslation(language);
+  const B_URL = import.meta.env.VITE_APP_BACKEND_URL ;
 
   useEffect(() => {
     const loadWeather = async () => {
@@ -71,7 +72,7 @@ export const Dashboard = () => {
       formData.append('email', email);
       formData.append('sprinklerId', sprinklerId); // Add this line
 
-      const response = await fetch('http://localhost:5000/api/user/add-plot', {
+      const response = await fetch(`${B_URL}/api/user/add-plot`, {
         method: 'POST',
         body: formData
       });
@@ -85,9 +86,10 @@ export const Dashboard = () => {
 
   useEffect(() => {
     if (!email) return;
+    
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/user?email=${email}`);
+        const response = await fetch(`${B_URL}/api/user?email=${email}`);
         const user = await response.json();
         setPlots(user.plots || []);
       } catch (err) {
