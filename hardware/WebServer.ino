@@ -51,7 +51,7 @@ void setup() {
 
   blinkStartup();  // <-- Blink at startup
 
-  WiFi.begin("Airtel_anur_6494", "air80055");
+  WiFi.begin(SSID, PASSWORD);
 
   Serial.println("Connecting to WiFi");
   while (WiFi.status() != WL_CONNECTED) {
