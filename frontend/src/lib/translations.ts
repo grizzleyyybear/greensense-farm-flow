@@ -6,6 +6,28 @@ export interface Translation {
   help: string;
   language: string;
 
+  revolutionizeAgriculture: string;
+  aiPoweredCropProtection: string;
+  getStarted: string;
+  goToDashboard: string;
+  howGreenSenseHelps: string;
+  precisionDiagnosis: string;
+  precisionDiagnosisDesc: string;
+  smartRecommendations: string;
+  smartRecommendationsDesc: string;
+  yieldBoost: string;
+  yieldBoostDesc: string;
+  ecoFriendly: string;
+  ecoFriendlyDesc: string;
+  ourImpact: string;
+  farmsProtected: string;
+  yieldIncrease: string;
+  detectionAccuracy: string;
+  readyToTransform: string;
+  exploreOurSolutions: string;
+  learnMore: string;
+  getSupport: string;
+
   // Dashboard
   smartCropHealth: string;
   welcomeBack: string;
@@ -101,6 +123,28 @@ export interface Translation {
 
 export const translations: Record<string, Translation> = {
   en: {
+    revolutionizeAgriculture: "Revolutionize Your Agriculture with GreenSense",
+    aiPoweredCropProtection: "AI-powered crop health monitoring and precision management for a sustainable future.",
+    getStarted: "Get Started Today",
+    goToDashboard: "Go to Dashboard",
+    howGreenSenseHelps: "How GreenSense Helps You Thrive",
+    precisionDiagnosis: "Precision Diagnosis",
+    precisionDiagnosisDesc: "AI-powered detection of crop diseases with unparalleled accuracy.",
+    smartRecommendations: "Smart Recommendations",
+    smartRecommendationsDesc: "Intelligent advice for optimal pesticide and resource management.",
+    yieldBoost: "Yield Boost",
+    yieldBoostDesc: "Maximize harvest and minimize waste with data-driven insights.",
+    ecoFriendly: "Eco-Friendly Farming",
+    ecoFriendlyDesc: "Reduce chemical use and promote sustainable agricultural practices.",
+    ourImpact: "Our Impact in Numbers",
+    farmsProtected: "Farms Protected",
+    yieldIncrease: "Yield Increase",
+    detectionAccuracy: "Detection Accuracy",
+    readyToTransform: "Ready to Transform Your Farm?",
+    exploreOurSolutions: "Discover how GreenSense can bring efficiency and sustainability to your agricultural practices.",
+    learnMore: "Learn More About Us",
+    getSupport: "Get Support",
+
     // Navigation
     dashboard: "Dashboard",
     about: "About",
@@ -202,6 +246,28 @@ export const translations: Record<string, Translation> = {
   },
   
   hi: {
+    revolutionizeAgriculture: "ग्रीनसेंस के साथ अपनी कृषि में क्रांति लाएं",
+    aiPoweredCropProtection: "टिकाऊ भविष्य के लिए AI-संचालित फसल स्वास्थ्य निगरानी और सटीक प्रबंधन।",
+    getStarted: "आज ही शुरू करें",
+    goToDashboard: "डैशबोर्ड पर जाएं",
+    howGreenSenseHelps: "ग्रीनसेंस आपकी मदद कैसे करता है",
+    precisionDiagnosis: "सटीक निदान",
+    precisionDiagnosisDesc: "अद्वितीय सटीकता के साथ फसल रोगों का एआई-संचालित पता लगाना।",
+    smartRecommendations: "स्मार्ट सिफारिशें",
+    smartRecommendationsDesc: "इष्टतम कीटनाशक और संसाधन प्रबंधन के लिए बुद्धिमान सलाह।",
+    yieldBoost: "पैदावार बढ़ाएँ",
+    yieldBoostDesc: "डेटा-संचालित अंतर्दृष्टि के साथ कटाई को अधिकतम करें और बर्बादी को कम करें।",
+    ecoFriendly: "पर्यावरण-अनुकूल खेती",
+    ecoFriendlyDesc: "रासायनिक उपयोग को कम करें और टिकाऊ कृषि प्रथाओं को बढ़ावा दें।",
+    ourImpact: "संख्याओं में हमारा प्रभाव",
+    farmsProtected: "सुरक्षित किए गए खेत",
+    yieldIncrease: "पैदावार में वृद्धि",
+    detectionAccuracy: "पता लगाने की सटीकता",
+    readyToTransform: "अपने खेत को बदलने के लिए तैयार हैं?",
+    exploreOurSolutions: "जानें कि ग्रीनसेंस आपकी कृषि में दक्षता और स्थिरता कैसे ला सकता है।",
+    learnMore: "हमारे बारे में और जानें",
+    getSupport: "सहायता प्राप्त करें",
+
     // Navigation  
     dashboard: "डैशबोर्ड",
     about: "हमारे बारे में",
@@ -303,6 +369,28 @@ export const translations: Record<string, Translation> = {
   },
   
   pa: {
+    revolutionizeAgriculture: "ਗ੍ਰੀਨਸੈਂਸ ਨਾਲ ਆਪਣੀ ਖੇਤੀਬਾੜੀ ਵਿੱਚ ਕ੍ਰਾਂਤੀ ਲਿਆਓ",
+    aiPoweredCropProtection: "ਟਿਕਾਊ ਭਵਿੱਖ ਲਈ AI-ਚਾਲਿਤ ਫਸਲ ਸਿਹਤ ਨਿਗਰਾਨੀ ਅਤੇ ਸਟੀਕ ਪ੍ਰਬੰਧਨ।",
+    getStarted: "ਅੱਜ ਹੀ ਸ਼ੁਰੂ ਕਰੋ",
+    goToDashboard: "ਡੈਸ਼ਬੋਰਡ 'ਤੇ ਜਾਓ",
+    howGreenSenseHelps: "ਗ੍ਰੀਨਸੈਂਸ ਤੁਹਾਡੀ ਮਦਦ ਕਿਵੇਂ ਕਰਦਾ ਹੈ",
+    precisionDiagnosis: "ਸਟੀਕ ਨਿਦਾਨ",
+    precisionDiagnosisDesc: "ਅਨੋਖੀ ਸਹੀਤਾ ਨਾਲ ਫਸਲਾਂ ਦੀਆਂ ਬਿਮਾਰੀਆਂ ਦੀ AI-ਚਾਲਿਤ ਖੋਜ।",
+    smartRecommendations: "ਸਮਾਰਟ ਸਿਫਾਰਸ਼ਾਂ",
+    smartRecommendationsDesc: "ਸਹੀ ਕੀਟਨਾਸ਼ਕ ਅਤੇ ਸਰੋਤ ਪ੍ਰਬੰਧਨ ਲਈ ਬੁੱਧੀਮਾਨ ਸਲਾਹ।",
+    yieldBoost: "ਪੈਦਾਵਾਰ ਵਧਾਓ",
+    yieldBoostDesc: "ਡੇਟਾ-ਸੰਚਾਲਿਤ ਸੂਝ ਨਾਲ ਵਾਢੀ ਨੂੰ ਵੱਧ ਤੋਂ ਵੱਧ ਕਰੋ ਅਤੇ ਬਰਬਾਦੀ ਘਟਾਓ।",
+    ecoFriendly: "ਵਾਤਾਵਰਣ-ਅਨੁਕੂਲ ਖੇਤੀ",
+    ecoFriendlyDesc: "ਰਸਾਇਣਕ ਵਰਤੋਂ ਘਟਾਓ ਅਤੇ ਟਿਕਾਊ ਖੇਤੀਬਾੜੀ ਅਭਿਆਸਾਂ ਨੂੰ ਉਤਸ਼ਾਹਿਤ ਕਰੋ।",
+    ourImpact: "ਸੰਖਿਆਵਾਂ ਵਿੱਚ ਸਾਡਾ ਪ੍ਰਭਾਵ",
+    farmsProtected: "ਸੁਰੱਖਿਅਤ ਕੀਤੇ ਖੇਤ",
+    yieldIncrease: "ਪੈਦਾਵਾਰ ਵਿੱਚ ਵਾਧਾ",
+    detectionAccuracy: "ਖੋਜ ਦੀ ਸਹੀਤਾ",
+    readyToTransform: "ਆਪਣੇ ਖੇਤ ਨੂੰ ਬਦਲਣ ਲਈ ਤਿਆਰ ਹੋ?",
+    exploreOurSolutions: "ਖੋਜੋ ਕਿ ਗ੍ਰੀਨਸੈਂਸ ਤੁਹਾਡੀ ਖੇਤੀਬਾੜੀ ਵਿੱਚ ਕੁਸ਼ਲਤਾ ਅਤੇ ਸਥਿਰਤਾ ਕਿਵੇਂ ਲਿਆ ਸਕਦਾ ਹੈ।",
+    learnMore: "ਸਾਡੇ ਬਾਰੇ ਹੋਰ ਜਾਣੋ",
+    getSupport: "ਸਹਾਇਤਾ ਪ੍ਰਾਪਤ ਕਰੋ",
+    
     // Navigation
     dashboard: "ਡੈਸ਼ਬੋਰਡ",
     about: "ਸਾਡੇ ਬਾਰੇ",

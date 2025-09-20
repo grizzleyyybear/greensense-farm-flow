@@ -12,6 +12,7 @@ interface Plot {
   reason?: string;
   healthScore?: number;
   imageUrl?: string;
+  sprinklerId?: string;
 }
 
 interface PlantDetailViewProps {
@@ -124,6 +125,13 @@ export const PlantDetailView = ({ plotId, plots, onBack }: PlantDetailViewProps)
                 <div className="p-3 bg-muted rounded-lg">
                   <p className="text-sm font-medium mb-1">Pest Suggestion:</p>
                   <p className="text-sm text-muted-foreground">{plot.pestSuggest}</p>
+                </div>
+              )}
+
+              {plot.sprinklerId && (
+                <div className="p-3 bg-muted rounded-lg">
+                  <p className="text-sm font-medium mb-1">Sprinkler ID:</p>
+                  <p className="text-sm text-muted-foreground">{plot.sprinklerId}</p>
                 </div>
               )}
             </CardContent>
