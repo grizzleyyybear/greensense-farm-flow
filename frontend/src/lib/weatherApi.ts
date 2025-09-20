@@ -9,7 +9,8 @@ export interface WeatherData {
 
 export async function fetchWeather(lat: number, lon: number): Promise<WeatherData> {
   try {
-    const response = await axios.get('http://localhost:5000/api/weather', {
+    const B_URL = import.meta.env.VITE_APP_BACKEND_URL;
+    const response = await axios.get(`${B_URL}/api/weather`, {
       params: { lat, lon },
     });
     return response.data;

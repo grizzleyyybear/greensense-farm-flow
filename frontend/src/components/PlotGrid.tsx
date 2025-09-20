@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Leaf, AlertTriangle, X, Plus } from 'lucide-react';
@@ -16,11 +16,12 @@ interface Plot {
 interface PlotGridProps {
   plots: Plot[];
   onPlotSelect: (plotId: string) => void;
-  onAddPlot: (file: File) => void;
+  onAddPlot: (file: File, sprinklerId: string) => void; // <-- update here
 }
 
 export const PlotGrid = ({ plots = [], onPlotSelect, onAddPlot }: PlotGridProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [sprinklerId, setSprinklerId] = useState('');
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -58,7 +59,7 @@ export const PlotGrid = ({ plots = [], onPlotSelect, onAddPlot }: PlotGridProps)
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      onAddPlot(file);
+      onAddPlot(file, sprinklerId);
     }
   };
 
@@ -72,22 +73,32 @@ export const PlotGrid = ({ plots = [], onPlotSelect, onAddPlot }: PlotGridProps)
             <span>My Plots</span>
           )}
         </div>
-        <button
-          className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded shadow hover:bg-primary/90 transition md:text-base text-sm md:px-4 md:py-2 px-2 py-2"
-          onClick={handleAddPlotClick}
-          aria-label="Add Plot"
-        >
-          <Plus className="h-5 w-5 md:mr-2" />
-          <span className="hidden md:inline">Add Plot</span>
-        </button>
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept="image/*"
-          capture="environment"
-          className="hidden"
-          onChange={handleFileChange}
-        />
+        <div className="flex items-center gap-2">
+          <input
+            type="text"
+            placeholder="Sprinkler ID"
+            value={sprinklerId}
+            onChange={(e) => setSprinklerId(e.target.value)}
+            className="border rounded px-2 py-1 text-sm"
+            style={{ minWidth: 120 }}
+          />
+          <button
+            className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded shadow hover:bg-primary/90 transition md:text-base text-sm md:px-4 md:py-2 px-2 py-2"
+            onClick={handleAddPlotClick}
+            aria-label="Add Plot"
+          >
+            <Plus className="h-5 w-5 md:mr-2" />
+            <span className="hidden md:inline">Add Plot</span>
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            capture="environment"
+            className="hidden"
+            onChange={handleFileChange}
+          />
+        </div>
       </div>
       {plots.length > 0 && (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
