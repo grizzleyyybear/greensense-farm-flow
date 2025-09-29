@@ -84,11 +84,13 @@ export const LoginPage = () => {
             <CardContent className="space-y-4 flex flex-col items-center justify-center">
               {isLogin ? (
                 <SignIn
+                  // THIS IS CORRECT: Redirects to a valid route after sign-in
                   fallbackRedirectUrl="/dashboard"
                   appearance={{ variables: { colorPrimary: "#22c55e" } }}
                 />
               ) : (
                 <SignUp
+                  // THIS IS CORRECT: Redirects to a valid route after sign-up
                   fallbackRedirectUrl="/dashboard"
                   appearance={{ variables: { colorPrimary: "#22c55e" } }}
                 />
