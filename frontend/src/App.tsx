@@ -1,9 +1,10 @@
+// App.tsx
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ClerkProvider } from "@clerk/clerk-react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { AppLayout } from "./components/AppLayout";
 import { Dashboard } from "./components/Dashboard";
@@ -34,21 +35,25 @@ const App = () => (
       <Sonner />
       <ClerkProvider
         publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}
-        afterSignOutUrl="/"
+        afterSignOutUrl="/" 
       >
         <LanguageProvider>
           <BrowserRouter>
             <Routes>
-              {/* Only ONE route for AppLayout, with all child routes nested inside */}
+              {/* Primary fix: Using <AppLayout> for the root path. 
+                All child routes are correctly relative to this parent.
+              */}
               <Route path="/" element={<AppLayout />}>
-                {/* Redirect from root to homepage as the default index route */}
+                {/* Route index element: This makes / render HomePage. 
+                  It's already correct.
+                */}
                 <Route index element={<HomePage />} />
-                {/* You can add a redirect if you want to explicitly redirect from / to /home */}
-                {/* <Route path="/" element={<Navigate to="/home" replace />} /> */}
                 
+                {/* Explicit /home route. If you navigate to /home, it loads inside AppLayout.
+                */}
                 <Route path="home" element={<HomePage />} />
                 
-                {/* Protected Dashboard Route */}
+                {/* Protected Dashboard Route: /dashboard */}
                 <Route
                   path="dashboard"
                   element={
@@ -57,6 +62,7 @@ const App = () => (
                     </ProtectedRoute>
                   }
                 />
+                {/* Other standard routes, correctly nested: /login, /about, /help */}
                 <Route path="login" element={<LoginPage />} />
                 <Route path="about" element={<AboutPage />} />
                 <Route path="help" element={<HelpPage />} />
