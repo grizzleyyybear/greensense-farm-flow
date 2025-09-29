@@ -51,7 +51,7 @@ const App = () => (
                 
                 {/* Explicit /home route. If you navigate to /home, it loads inside AppLayout.
                 */}
-                <Route path="home" element={<HomePage />} />
+                <Route path="/" element={<HomePage />} />
                 
                 {/* Protected Dashboard Route: /dashboard */}
                 <Route
