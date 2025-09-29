@@ -105,7 +105,7 @@ export const Navigation = () => {
                   </Button>
                 </SignedOut>
                 <SignedIn>
-                  <UserButton afterSignOutUrl="/home" />
+                  <UserButton afterSignOutUrl="/" />
                 </SignedIn>
               </div>
 
@@ -194,7 +194,7 @@ export const Navigation = () => {
                 </SignedOut>
                 <SignedIn>
                   <div className="mt-2 flex justify-start">
-                    <UserButton afterSignOutUrl="/home" />
+                    <UserButton afterSignOutUrl="/" />
                   </div>
                 </SignedIn>
               </div>
